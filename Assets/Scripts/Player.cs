@@ -94,4 +94,10 @@ public class Player : MonoBehaviour
                 players.Reverse();
             }
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+            print("Touched Point");
+        
+    }
+    
 }
