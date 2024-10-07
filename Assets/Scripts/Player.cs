@@ -95,6 +95,8 @@ public class Player : MonoBehaviour
             }
     }
 
+    // Esto es una prueba para chequear cuando el jugador toca uno de los "Points". Por el momento solo imprime a la consola un mensaje que indica que lo tocamos. 
+    // Todavía está en proceso el tema de los tilemaps, colliders y como va a manejarse el movimiento del jugador a través del tablero. Sujeto a cambios.
     private void OnTriggerEnter2D(Collider2D other) {
             print("Touched Point");
         
