@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+
 
 // Clase Player. Esta clase se encargará de los comportamientos del jugador, en un principio es un solo archivo pero probablemente abarque más dependiendo de la complejidad. 
 // Podemos definir una clase como un "tipo" de objeto. 
@@ -12,10 +14,15 @@ public class Player : MonoBehaviour
     // Todo lo que vemos antes del método Start() son fields o campos. Estos nos permiten guardar valores que luego vamos a utilizar en nuestro código. 
 
     // Esto es una lista (List) de jugadores. La sintaxis es List<NombreDeLaClase>. Acá lo que estoy haciendo es instanciando una lista que va a ir agregando los elementos que posean la clase Player.  
+
+    [SerializeField] List<Transform> points1;
+    [SerializeField] List<Transform> points2;
+    
     public static List<Player> players = new();
 
     // La palabra reservada "SerializedField" se utiliza para poder modificar en el editor de Unity el campo. Suele utilizarse para poder diseñar y probar cosas con facilidad, sin tener que meterte en el código cada vez que quieras cambiar algo. En este caso, el campo es de tipo flotante (número decimal) y se llama speed, la velociadad. Por default la puse en 5, pero puede ser modificada como mencioné anteriormente en el editor. La f luego del número es para especificar que el número es de tipo float. 
     [SerializeField] private float speed = 5f;
+
     
     // En este caso el campo es de tipo Vector3, esto es un Vector que posee 3 valores: rgb o xyz. Significan lo mismo y pueden utilizarse de manera intercambiable. En este caso, el vector va a indicarnos una posición a la cual queremos que nuestro jugador se dirija, por lo tanto tiene sentido entender los valores como xyz. 
     private Vector3 target;
@@ -50,13 +57,43 @@ public class Player : MonoBehaviour
             // Si todas estas condiciones se cumplen, ejecuto el código:
             // Acá establezo que la posición o Vector3 del campo target va a ser igual a la posición del mouse. 
             // Para esto investigando descubrí que necesito transformar el espacio de la pantalla al espacio del "mundo" es decir del juego. Esto lo hago mediante el método ScreenToWorldPoint, que pertenece al componente Camera. Main en este caso se refiere a la MainCamera que tenemos en nuestro editor de Unity. Debe haber una Cámara establecida como Main o principal para que esto funcione. Dentro de los paréntesis le pasamos la posición del mouse, nuevamente utilizando la clase Input.
-            target = Camera.main.ScreenToWorldPoint( Input.mousePosition );
+            //target = Input.mousePosition;
+            Collider2D col = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+            if (col)
+            {
+                target = col.transform.position;
+                moved = true;
+            }
+
+           // print(target + "sin cell position");
+
+            // foreach(Transform point in points1) {
+            //     if(Vector2.Distance(point.position, target) <= 0.5f){
+            //         target = point.position;
+            //         moved = true;
+            //         return;
+            //     }
+            // }
+
+            // foreach(Transform point in points2) {
+            //     if(Vector2.Distance(point.position, target) <= 0.5f){
+            //         target = point.position;
+            //         moved = true;
+            //         return;
+            //     }
+            // }
+
+            // Vector3Int pointPosition = pointsTilemap.WorldToCell(target);
+            // target = pointPosition;
+
 
             // Acá lo único que hago es establecer la posición z del target igual a la del jugador, puesto que al ser un juego 2d la posición z no es relevante, y para estar seguros es mejor que esté en un valor estable. 
             target.z = transform.position.z;
 
+
             // Luego cambio el campo "moved" a true, para avisar que el jugador se movió. 
-            moved = true;
+           // moved = true;
         }
 
             // Acá, fuera del if, utilizo el método MoveTowards de la estructura Vector3 de Unity para calcular la distancia que hay entre la posición del jugador y la posición del target. Luego me muevo hacia esa posición a la velocidad establecida previamente multiplicada por el tiempo.
@@ -70,7 +107,7 @@ public class Player : MonoBehaviour
             // Chequeamos primero que la posición del jugador sea IGUAL a la de nuestra target. Osea, que el jugador llegó a destino. 
             // Luego confirmamos también que efectivamente se haya movido: recordemos que al principio la posición de target y del jugador es la misma, por lo que si no chequeamos si se movió puede haber errores (creanme los hubo :) ) 
             // Finalmente confirmamos una vez más que el índice es 0. 
-            if(transform.position == target && moved && players.IndexOf(this) == 0)
+            if(Vector2.Distance(transform.position, target) <= 0.01f && moved && players.IndexOf(this) == 0)
             { 
 
             // Para diferenciar al jugador que se movió le aplico temporalmente el color rojo. Esto lo hago llamando al componente SpriteRenderer que contienen todos los game objects de tipo Sprite. 
@@ -102,4 +139,5 @@ public class Player : MonoBehaviour
         
     }
     
+
 }
