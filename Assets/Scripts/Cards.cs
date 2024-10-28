@@ -8,6 +8,9 @@ public class Cards : MonoBehaviour
 {
     // Este campo creará una lista de cartas, el mazo, a partir de las cartas a las que hagamos referencia en el editor.
     [SerializeField] List<Card> deck = new();
+    private List<Card> discardDeck = new();
+
+    [SerializeField] private int maxCards = 4;
 
     // En este campo se hará un array de slots o lugares disponibles adonde se colocarán las cartas. Representarían nuestra "mano". La palabra reservada "Transform" indica que estamos referenciando el componente Transform de en este caso los gameobjects vacíos, esto es, vamos a querer acceder a su posición. 
     [SerializeField] Transform[] cardSlots;
@@ -15,7 +18,7 @@ public class Cards : MonoBehaviour
     // Acá armamos un array de booleanas de acuerdo a la disponibilidad de nuestra mano. Cuando un lugar deja de estar disponible, pasa a ser false y no podremos poner una carta ahí.
     [SerializeField] bool[] availableCardSlots;
 
-    // El método DrawCard se encarga del comportamiento al apretar el botón de Retirar Carta en el juego. Esto se vincula desde el editor de Unity. 
+    // El método DrawCard se encarga del comportamiento al apretar el botón de Robar Carta en el juego. Esto se vincula desde el editor de Unity. 
     public void DrawCard() {
         // Primero chequeamos que el mazo tenga cartas.
         if (deck.Count >= 1) {
@@ -40,6 +43,18 @@ public class Cards : MonoBehaviour
             }
 
         }
+        
+    }
+
+    public void GenerateDeck() {
+        
+    }
+
+    public void Discard() {
+
+    }
+
+    public void Shuffle() {
     }
 
 }

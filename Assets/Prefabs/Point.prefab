@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4388093956778025949}
   - component: {fileID: 4252162262463748277}
   m_Layer: 3
-  m_Name: Circle
+  m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

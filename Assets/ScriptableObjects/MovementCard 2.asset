@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 1, g: 0.9504018, b: 0, a: 1}
   type: Movement
-  value: 2
+  value: 3

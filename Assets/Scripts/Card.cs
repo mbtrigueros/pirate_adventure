@@ -13,10 +13,29 @@ public class Card : MonoBehaviour
 
     [SerializeField] Image cardImage;
 
+    public delegate void CardClickedHandler(Card card);
+    public static event CardClickedHandler OnCardClicked;
+
     void Start()
     {
         typeText.text = card.type;
         valueText.text = "+" + card.value.ToString();
         cardImage.color = card.color;
     }
+
+    public void OnMouseDown() {
+        OnCardClicked?.Invoke(this);
+    }
+
+    public string GetType() {
+        return card.type;
+    }
+
+    public int GetValue() {
+        return card.value;
+    }
+
+
+
+    
 }
