@@ -20,7 +20,7 @@ public class Boat : MonoBehaviour
     [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
 
-    public bool isMoving;
+    private bool isMoving;
 
     // Start is called before the first frame update
     void Start()
@@ -70,21 +70,16 @@ public class Boat : MonoBehaviour
 
     }
 
-    private void HandleSunkenState() {
-        // acá vamos a manejar el comportamiento del barco al hundirse. 
-        // funciones de retorno al último puerto.        
-    }
-
     public void TakeDamage(int damage) {
         Integrity -= damage;
         Debug.Log("Golpeaste una roca que te lastimo esta cantidad: " + damage + ". Tu integridad ahora es de :" + Integrity);
-        if (Integrity <= 0 ) { sunken = true; HandleSunkenState(); }
+        if (Integrity <= 0 ) { sunken = true; }
     }
 
     public void TakeWater(int water) {
         Capacity -= water;
         Debug.Log("Te llenaste de " + water + " cantidad de agua. Tu capacidad ahora es de: " + Capacity);
-        if (Capacity <= 0 ) { sunken = true; HandleSunkenState(); }
+        if (Capacity <= 0 ) { sunken = true; }
     }
 
     public Cards GetBoatDeck() {
@@ -122,10 +117,6 @@ public class Boat : MonoBehaviour
             Debug.Log("Acá no pasa nada :)");
             break;
         }
-    }
-
-    public bool IsMoving() {
-        return isMoving;
     }
 
 }

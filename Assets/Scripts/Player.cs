@@ -18,11 +18,14 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         
-        Card.OnCardClicked += HandleCardClicked; 
+        Card.OnCardClicked += PlayCard; 
         TurnController.Instance.OnTurnChanged += HandleTurnChanged;
     }
 
     private void Update() {
+
+        // Por el momento "elegimos" la ruta presionando R. En realidad, en el editor de Unity arrastramos la Ruta que queremos a cada Player. Esto se modificará más adelante. 
+        // Al elegir la ruta, nuestro bote se coloca en la posición 0 de la misma.
         if( Input.GetKeyDown(KeyCode.R) ) {
             ChooseRoute(playerRoute);
         }
@@ -32,22 +35,22 @@ public class Player : MonoBehaviour
     {
         if (currentPlayer == this)
         {
-            Debug.Log(name + " can take their turn.");
+            Debug.Log(name + " puede tomar su turno.");
         }
         else
         {
-            Debug.Log(name + " must wait.");
+            Debug.Log(name + " debe esperar.");
         }
     }
 
-    private void HandleCardClicked(Card card)
+    private void PlayCard(Card card)
     {
         if (TurnController.Instance.IsCurrentPlayer(this) ) {
-            Debug.Log( name + " clicked on card: " + card.GetType());
+            Debug.Log( name + " usó la carta: " + card.GetType());
                 StartCoroutine(CardAction(card));
         }
             else {
-                Debug.Log("It's not " + name + "'s turn.");
+                Debug.Log("No es el turno de " + name);
             }
 
     }
@@ -62,7 +65,6 @@ public class Player : MonoBehaviour
                     // do movement
                             Debug.Log(name + playerBoat.transform.position);                     
                             yield return StartCoroutine(playerBoat.Move(route, card.GetValue()));
-                        //   break;
                         
                     
                     break;
@@ -86,7 +88,7 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        Card.OnCardClicked -= HandleCardClicked; 
+        Card.OnCardClicked -= PlayCard; 
         TurnController.Instance.OnTurnChanged -= HandleTurnChanged;
     }
     public void ChooseBoat(Boat boat) {
@@ -99,12 +101,6 @@ public class Player : MonoBehaviour
 
     public void DrawCard() {
 
-    }
-
-    public void PlayCard() {
-        // podemos llamar este evento onclick de la carta. 
-        // detectar tipo de carta
-        // llamar metodo del bote correspondiente
     }
 
     public void Shuffle() {
