@@ -15,14 +15,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Boat playerBoat;
     [SerializeField] private Route playerRoute;
 
-    [SerializeField] private int cardsCount = 4;
-
     private void OnEnable()
     {
+        
         Card.OnCardClicked += PlayCard; 
         TurnController.Instance.OnTurnChanged += HandleTurnChanged;
     }
-
 
     private void Update() {
 
@@ -58,32 +56,32 @@ public class Player : MonoBehaviour
     }
 
     private IEnumerator GetCardType(Card card, Route route) {
-            switch(card.type) {
-                case CardType.HEALTH: 
-                    playerBoat.Repair(card.value);
+            switch(card.GetType()) {
+                case GameConstants.CARD_TYPE_HEALTH: 
+                    playerBoat.Repair(card.GetValue());
                     Debug.Log(playerBoat.Integrity);
                     yield break;
-                case CardType.MOVEMENT: 
+                case GameConstants.CARD_TYPE_MOVEMENT: 
                     // do movement
                             Debug.Log(name + playerBoat.transform.position);                     
-                            yield return StartCoroutine(playerBoat.Move(route, card.value));
+                            yield return StartCoroutine(playerBoat.Move(route, card.GetValue()));
                         
                     
                     break;
-                case CardType.EMPTY:
-                    playerBoat.Empty(card.value);
+                case GameConstants.CARD_TYPE_EMPTY:
+                    playerBoat.Empty(card.GetValue());
                     Debug.Log(playerBoat.Capacity);
                     yield break;
-                case CardType.ANCHOR:
+                case GameConstants.CARD_TYPE_ANCHOR:
                     // do anchor
                     yield break;
             }
             
     }
     private IEnumerator CardAction(Card card) {
+                    //GetCardType(card, playerRoute);
                     Debug.Log(playerBoat.name);
                     yield return StartCoroutine(GetCardType(card, playerRoute));  
-                    playerBoat.GetBoatDeck().DiscardAll();
                     TurnController.Instance.SwitchTurn();
             
     }
@@ -101,9 +99,8 @@ public class Player : MonoBehaviour
         playerBoat.transform.position = route.GetPoints()[0].transform.position;
     }
 
-    public void DrawCards() {
-        Cards deck = playerBoat.GetBoatDeck();
-        if(deck) deck.DrawCards(cardsCount);
+    public void DrawCard() {
+
     }
 
     public void Shuffle() {

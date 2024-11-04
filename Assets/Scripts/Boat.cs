@@ -13,8 +13,9 @@ public class Boat : MonoBehaviour
 
     [SerializeField] private int anchoring; // estado de fondeo.
 
-    [SerializeField] private BoatType boatType;
+    [SerializeField] public readonly BoatType boatType;
 
+    private Vector2 position;
 
     [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
@@ -22,18 +23,12 @@ public class Boat : MonoBehaviour
     private bool isMoving;
 
     // Start is called before the first frame update
-
-    private void Awake() {
-        boatDeck = GameObject.Find("DeckManager").GetComponent<Cards>();   
-    }
     void Start()
     {
         Integrity = integrity;
         Capacity = capacity;
 
         isMoving = false;
-
-        GenerateBoatDeck();
     }
 
     // Update is called once per frame
@@ -85,10 +80,6 @@ public class Boat : MonoBehaviour
         Capacity -= water;
         Debug.Log("Te llenaste de " + water + " cantidad de agua. Tu capacidad ahora es de: " + Capacity);
         if (Capacity <= 0 ) { sunken = true; }
-    }
-
-    public void GenerateBoatDeck() {
-        if (boatDeck) boatDeck.GenerateDeck(boatType);
     }
 
     public Cards GetBoatDeck() {
