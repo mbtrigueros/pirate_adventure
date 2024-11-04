@@ -13,6 +13,8 @@ public class Cards : MonoBehaviour
     private List<Card> deck = new List<Card>();
     private List<Card> discardDeck = new List<Card>();
     private List<Card> currentDrawnCards = new List<Card>(); 
+
+    private BoatType deckType;
     
 
     public void GenerateDeck(BoatType boatType) {
@@ -23,12 +25,15 @@ public class Cards : MonoBehaviour
         switch (boatType) {
             case BoatType.BIG:
                 deckData = bigDeck;
+                deckType = BoatType.BIG;
                 break;
             case BoatType.FAST:
                 deckData = fastDeck;
+                deckType = BoatType.FAST;
                 break;
             case BoatType.STRONG:
-                deckData = strongDeck;           
+                deckData = strongDeck;     
+                deckType = BoatType.STRONG;      
                 break;
         }
 
@@ -42,7 +47,7 @@ public class Cards : MonoBehaviour
         Shuffle();
     }
 
-    public void DrawCards(int count) {
+    public List<Card> DrawCards(int count) {
         if (deck.Count == 0) {
             ReshuffleDiscardDeck();
         }
@@ -54,12 +59,17 @@ public class Cards : MonoBehaviour
         for (int i = 0; i < count && deck.Count > 0; i++) {
             int randomIndex = Random.Range(0, deck.Count);
             Card drawnCard = deck[0];
+            drawnCard.gameObject.SetActive(true);
             deck.RemoveAt(0);
+            currentDrawnCards.Add(drawnCard);
             CardDisplay displayCard = drawnCard.GetComponent<CardDisplay>();
             displayCard.SetCardAppearance(drawnCard);
             DisplayCard(drawnCard, i);
-            Debug.Log("i displayed the card" + displayCard.cardImage.color + displayCard.valueText);
+            Debug.Log("i displayed the card" + displayCard);
         }
+
+        Debug.Log("Current Deck Count after drawing cards: " + deck.Count);
+        return currentDrawnCards; 
 
     }
 
@@ -76,7 +86,10 @@ public class Cards : MonoBehaviour
         for(int i = 0; i < count; i++) {
             GameObject cardObject = Instantiate(cardPrefab);
             Card card = cardObject.GetComponent<Card>();
+            CardDisplay displayCard = card.GetComponent<CardDisplay>();
             card.type = cardType;
+            // displayCard.SetAlpha(card, 0f);
+           // card.gameObject.SetActive(false);
             if ( cardType != CardType.ANCHOR ) {
                 card.value = Random.Range(1, 4);
             }
@@ -92,7 +105,7 @@ public class Cards : MonoBehaviour
         if (positionIndex < cardPositions.Count)
         {
             card.transform.position = cardPositions[positionIndex].position;
-            card.gameObject.SetActive(true); 
+            card.gameObject.SetActive(true);
         }
     }
 
@@ -102,14 +115,19 @@ public class Cards : MonoBehaviour
 
     public void DiscardAll() {
         foreach(Card card in currentDrawnCards) {
+            card.gameObject.SetActive(false);
             DiscardCard(card);
         }
 
         currentDrawnCards.Clear();
     }
 
-    public List<Card> GetDeck() {
-        return deck;
+    public List<Card> GetCurrentDrawnCards() {
+        return currentDrawnCards;
+    }
+
+    public BoatType GetDeck() {
+        return deckType;
     }
 
     public void Shuffle() {

@@ -27,6 +27,7 @@ public class TurnController : MonoBehaviour
     private void Awake() {
         if (Instance == null) {
             Instance = this;
+            Debug.Log("TurnController instatiated");
             DontDestroyOnLoad(gameObject); 
         }
         else {
@@ -37,22 +38,27 @@ public class TurnController : MonoBehaviour
     // En el método Start llamamos al método StartPlayerTurn.
     private void Start() {
         StartPlayerTurn();
+        foreach (Player player in players) {
+        Debug.Log($"{player.name} is subscribed: {player.suscribed}");
+    }
     }
 
     // Método para iniciar el turno.
-    private void StartPlayerTurn() {
-
-        // Igualamos el jugador actual al indice del array de jugadores.
+    public void StartPlayerTurn() {
         Player currentPlayer = CurrentPlayer();
-        OnTurnChanged?.Invoke(currentPlayer); 
+        Debug.Log("Starting turn for player: " + currentPlayer.name);
+        OnTurnChanged?.Invoke(currentPlayer);
     }
 
     // Método para cambiar de turno. 
     public void SwitchTurn() {
         // Igualamos el indice del jugador + 1 y hacemos el módulo del largo del array. Esto nos va a devolver 0 o 1, cambiando así el turno. 
+        players[currentPlayerIndex].ClearDrawnCards();
         currentPlayerIndex = (currentPlayerIndex + 1) % players.Length; 
+        Debug.Log("Current player index is now: " + currentPlayerIndex);
         // Luego iniciamos el turno.
         StartPlayerTurn(); 
+        Debug.Log("Switched turn to: " + CurrentPlayer().name);
     }
 
     // Devolvemos el indice del jugador actual.
@@ -62,6 +68,8 @@ public class TurnController : MonoBehaviour
 
     // Chequeamos que el jugador sea el actual.
     public bool IsCurrentPlayer(Player player) {
-        return player == players[currentPlayerIndex]; 
+    bool isCurrent = player == players[currentPlayerIndex];
+    Debug.Log($"Is {player.name} current player? {isCurrent}");     
+    return isCurrent;
     }
 }

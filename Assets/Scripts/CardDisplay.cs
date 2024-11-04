@@ -7,14 +7,21 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField] public Image cardImage {get; private set;}
-    [SerializeField] public TextMeshProUGUI valueText {get; private set;}
+    [SerializeField] public Image cardImage;
+    [SerializeField] public TextMeshProUGUI valueText;
     
+    public void Start() {
+    }
 
+    public void Update() {
+
+    }
     public void SetCardAppearance(Card card)
     {
         
         valueText.text = card.value > 0 ? card.value.ToString() : "Anchor";
+
+      //  SetAlpha(card, 1f);
 
         switch(card.type) {
             case CardType.HEALTH: 
@@ -30,5 +37,12 @@ public class CardDisplay : MonoBehaviour
                 cardImage.color = Color.red;
                 break;
         }
+    }
+
+    public void SetAlpha(Card card, float alpha) {
+        alpha = Mathf.Clamp01(alpha);
+        Color color = cardImage.color;
+        color.a = alpha; 
+        cardImage.color = color;
     }
 }

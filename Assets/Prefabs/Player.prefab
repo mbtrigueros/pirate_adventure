@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41d55fab97a5d443b01fbaf975b4d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   playerBoat: {fileID: 0}
+  playerRoute: {fileID: 0}
+  cardsCount: 4
+  suscribed: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boat : MonoBehaviour
 {
 
-    private Cards boatDeck;
+    [SerializeField] private Cards boatDeck;
     public int Integrity { get; private set; }
     public int Capacity { get; private set; }
 
@@ -24,7 +24,8 @@ public class Boat : MonoBehaviour
     // Start is called before the first frame update
 
     private void Awake() {
-        boatDeck = GameObject.Find("DeckManager").GetComponent<Cards>();   
+        boatDeck.GenerateDeck(boatType);
+        Debug.Log("Deck Generated: " + boatDeck.GetDeck() + "Kind of Boat I am: " + this.boatType);
     }
     void Start()
     {
@@ -33,7 +34,8 @@ public class Boat : MonoBehaviour
 
         isMoving = false;
 
-        GenerateBoatDeck();
+     //   GenerateBoatDeck();
+       // boatDeck.GenerateDeck(boatType);
     }
 
     // Update is called once per frame
@@ -89,6 +91,7 @@ public class Boat : MonoBehaviour
 
     public void GenerateBoatDeck() {
         if (boatDeck) boatDeck.GenerateDeck(boatType);
+        Debug.Log("Generating deck...");
     }
 
     public Cards GetBoatDeck() {

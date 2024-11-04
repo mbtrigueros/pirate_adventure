@@ -12,16 +12,46 @@ using UnityEngine;
 // Que significa que "hereda"? Cuando una clase hereda de otra, esto quiere decir que puede utilizar métodos, campos y variables que definen o pertenecen a dicha clase. Ejemplo: Existe una clase Perro con el método Ladrar(). Tanto un Caniche como un Ovejero Alemán, que serían en este ejmplo distintas clases, van a heredar de la clase Perro y van a poder utilizar el método ladrar. 
 public class Player : MonoBehaviour
 {   
+    
     [SerializeField] private Boat playerBoat;
     [SerializeField] private Route playerRoute;
 
     [SerializeField] private int cardsCount = 4;
 
-    private void OnEnable()
+    private List<Card> drawnCards = new List<Card>();
+
+    public bool suscribed = false;
+    private void Awake()
     {
-        Card.OnCardClicked += PlayCard; 
-        TurnController.Instance.OnTurnChanged += HandleTurnChanged;
+        if (TurnController.Instance == null)
+        {
+            Debug.LogWarning("TurnController not ready, retrying...");
+            return; 
+        }
+        if (TurnController.Instance != null)
+        {
+            TurnController.Instance.OnTurnChanged += HandleTurnChanged;
+            Card.OnCardClicked += PlayCard;
+            suscribed = true;
+            Debug.Log(this + "Suscribed to the events.");
+        }
+        else
+        {
+            Debug.LogWarning("TurnController instance is null, cannot subscribe.");
+        }
+            
+
     }
+
+    
+    private void OnDisable()
+    {
+            Debug.Log(this + "Unsuscribed to the events.");
+        Card.OnCardClicked -= PlayCard; 
+        TurnController.Instance.OnTurnChanged -= HandleTurnChanged;
+        suscribed = false;
+    }
+    
 
 
     private void Update() {
@@ -35,22 +65,26 @@ public class Player : MonoBehaviour
 
     private void HandleTurnChanged(Player currentPlayer)
     {
+        Debug.Log($"{name} received turn change. Current player is {currentPlayer.name}");
+        Debug.Log($"Current Player: {currentPlayer.name}, This Player: {name}");
         if (currentPlayer == this)
         {
             Debug.Log(name + " puede tomar su turno.");
-        }
-        else
-        {
-            Debug.Log(name + " debe esperar.");
+            DrawCards();
         }
     }
 
     private void PlayCard(Card card)
     {
+
+        Debug.Log($"Attempting to play card: {card.type}. Current player: {TurnController.Instance.CurrentPlayer().name}. This player: {name}");
         if (TurnController.Instance.IsCurrentPlayer(this) ) {
-            Debug.Log( name + " usó la carta: " + card.GetType());
-                StartCoroutine(CardAction(card));
-        }
+            Debug.Log("Current player confirmed.");
+            if (playerBoat.GetBoatDeck().GetCurrentDrawnCards().Contains(card)) {
+                Debug.Log( name + " usó la carta: " + card.type);
+                    StartCoroutine(CardAction(card));
+                    Debug.Log( "Empezo CardAction corrutine....");
+            } }
             else {
                 Debug.Log("No es el turno de " + name);
             }
@@ -65,8 +99,8 @@ public class Player : MonoBehaviour
                     yield break;
                 case CardType.MOVEMENT: 
                     // do movement
-                            Debug.Log(name + playerBoat.transform.position);                     
-                            yield return StartCoroutine(playerBoat.Move(route, card.value));
+                        Debug.Log(name + playerBoat.transform.position);                     
+                        yield return StartCoroutine(playerBoat.Move(route, card.value));
                         
                     
                     break;
@@ -88,11 +122,7 @@ public class Player : MonoBehaviour
             
     }
 
-    private void OnDisable()
-    {
-        Card.OnCardClicked -= PlayCard; 
-        TurnController.Instance.OnTurnChanged -= HandleTurnChanged;
-    }
+
     public void ChooseBoat(Boat boat) {
 
     }
@@ -103,7 +133,21 @@ public class Player : MonoBehaviour
 
     public void DrawCards() {
         Cards deck = playerBoat.GetBoatDeck();
-        if(deck) deck.DrawCards(cardsCount);
+        if(deck) {
+            List<Card> newCards = deck.DrawCards(cardsCount);
+            drawnCards.AddRange(newCards); 
+            Debug.Log(name + " has drawn " + newCards.Count + " cards.");
+        }
+    }
+
+    public void ClearDrawnCards() {
+        Debug.Log("Before clearing: " + drawnCards.Count);
+        foreach (Card card in drawnCards) {
+            card.GetComponent<CardDisplay>().SetAlpha(card, 0f); 
+            Debug.Log("Im clearing the drawncards...");
+        }
+        drawnCards.Clear();
+        Debug.Log("After clearing: " + drawnCards.Count);
     }
 
     public void Shuffle() {
