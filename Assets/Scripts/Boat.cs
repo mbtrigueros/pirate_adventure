@@ -38,7 +38,7 @@ public class Boat : MonoBehaviour
     }
     int oldPositionIndex = 0;
     public void Move(Route route, int cardValue) {
-
+        
         var routeIndex = oldPositionIndex + cardValue + 1;  
         oldPositionIndex = routeIndex;
         
