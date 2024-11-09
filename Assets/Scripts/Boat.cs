@@ -19,8 +19,6 @@ public class Boat : MonoBehaviour
     [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
 
-    private bool isMoving;
-
     // Start is called before the first frame update
 
     private void Awake() {
@@ -31,11 +29,6 @@ public class Boat : MonoBehaviour
     {
         Integrity = integrity;
         Capacity = capacity;
-
-        isMoving = false;
-
-     //   GenerateBoatDeck();
-       // boatDeck.GenerateDeck(boatType);
     }
 
     // Update is called once per frame
@@ -44,21 +37,12 @@ public class Boat : MonoBehaviour
         
     }
     int oldPositionIndex = 0;
-    public IEnumerator Move(Route route, int cardValue) {
+    public void Move(Route route, int cardValue) {
 
-        isMoving = true;
-        
-        var routeIndex = oldPositionIndex + cardValue;  
-        while (Vector3.Distance(transform.position, route.GetPoints()[routeIndex].transform.position) > 0.01f) 
-        {
-            transform.position = Vector3.MoveTowards(transform.position, route.GetPoints()[routeIndex].transform.position, speed * Time.deltaTime);
-            oldPositionIndex = routeIndex;
-            yield return null;
-        }
+        var routeIndex = oldPositionIndex + cardValue + 1;  
+        oldPositionIndex = routeIndex;
         
         transform.position = route.GetPoints()[routeIndex].transform.position;
-        isMoving = false;  
-        Debug.Log("Reached position. Is Moving? = " + isMoving);
     }
 
     public void Repair(int health){
@@ -100,7 +84,7 @@ public class Boat : MonoBehaviour
 
     private bool hasCollided = false;
     private void OnTriggerStay2D(Collider2D point) {
-        if(!hasCollided && !isMoving) {
+        if(!hasCollided) {
             DetectPointType(point.GetComponent<Point>());
             hasCollided = true;
         }
@@ -112,13 +96,10 @@ public class Boat : MonoBehaviour
     private void DetectPointType(Point point) {
         switch(point.GetType()) {
             case PointType.ROCK:
-            // damage boat
             TakeDamage(point.GetValue());
             break;
             case PointType.WATER:
-            // fill boat with water
             TakeWater(point.GetValue());
-            
             break;
             case PointType.PORT:
             // port logic

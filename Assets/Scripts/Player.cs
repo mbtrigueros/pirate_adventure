@@ -82,7 +82,6 @@ public class Player : MonoBehaviour
             if (playerBoat.GetBoatDeck().GetCurrentDrawnCards().Contains(card)) {
                 Debug.Log( name + " usó la carta: " + card.type);
                     StartCoroutine(CardAction(card));
-                    Debug.Log( "Empezo CardAction corrutine....");
             } }
             else {
                 Debug.Log("No es el turno de " + name);
@@ -95,12 +94,8 @@ public class Player : MonoBehaviour
                     playerBoat.Repair(card.value);
                     Debug.Log(playerBoat.Integrity);
                     yield break;
-                case CardType.MOVEMENT: 
-                    // do movement
-                        Debug.Log(name + playerBoat.transform.position);                     
-                        yield return StartCoroutine(playerBoat.Move(route, card.value));
-                        
-                    
+                case CardType.MOVEMENT:                   
+                    playerBoat.Move(route, card.value);
                     break;
                 case CardType.EMPTY:
                     playerBoat.Empty(card.value);
