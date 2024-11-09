@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
 
     private void PlayCard(Card card)
     {
-
         Debug.Log($"Attempting to play card: {card.type}. Current player: {TurnController.Instance.CurrentPlayer().name}. This player: {name}");
         if (TurnController.Instance.IsCurrentPlayer(this) ) {
             Debug.Log("Current player confirmed.");
@@ -88,7 +87,6 @@ public class Player : MonoBehaviour
             else {
                 Debug.Log("No es el turno de " + name);
             }
-
     }
 
     private IEnumerator GetCardType(Card card, Route route) {
