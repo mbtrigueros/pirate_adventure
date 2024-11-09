@@ -19,6 +19,7 @@ public class Cards : MonoBehaviour
 
     public void GenerateDeck(BoatType boatType) {
         deck.Clear();
+        discardDeck.Clear(); 
 
         DeckData deckData = null;
 
@@ -49,11 +50,12 @@ public class Cards : MonoBehaviour
 
     public List<Card> DrawCards(int count) {
         if (deck.Count == 0) {
+            Debug.Log("Deck count before reshuffling: " + deck.Count);
+            Debug.Log("Discard count before reshuffling: " + discardDeck.Count);
             ReshuffleDiscardDeck();
         }
         
         currentDrawnCards.Clear();
-
 
 
         for (int i = 0; i < count && deck.Count > 0; i++) {
@@ -65,20 +67,28 @@ public class Cards : MonoBehaviour
             CardDisplay displayCard = drawnCard.GetComponent<CardDisplay>();
             displayCard.SetCardAppearance(drawnCard);
             DisplayCard(drawnCard, i);
-            Debug.Log("i displayed the card" + displayCard);
         }
 
-        Debug.Log("Current Deck Count after drawing cards: " + deck.Count);
+        Debug.Log("Current Deck Count after drawing cards: " + deck.Count + " TYPE OF DECK: " + GetDeckType());
         return currentDrawnCards; 
 
     }
 
-    private void ReshuffleDiscardDeck()
+    public int GetDeckCount()
+    {
+        return deck.Count;
+    }
+
+    public void ReshuffleDiscardDeck()
     {
         if (discardDeck.Count > 0) {
             deck.AddRange(discardDeck);
             discardDeck.Clear();
-            Shuffle();
+            Shuffle(); // Shuffle the deck again
+            Debug.Log("Deck reshuffled. Cards remaining: " + deck.Count);
+        }
+        else {
+            Debug.Log("No cards to reshuffle.");
         }
     }
 
@@ -89,7 +99,7 @@ public class Cards : MonoBehaviour
             CardDisplay displayCard = card.GetComponent<CardDisplay>();
             card.type = cardType;
             // displayCard.SetAlpha(card, 0f);
-           // card.gameObject.SetActive(false);
+            card.gameObject.SetActive(false);
             if ( cardType != CardType.ANCHOR ) {
                 card.value = Random.Range(1, 4);
             }
@@ -120,13 +130,18 @@ public class Cards : MonoBehaviour
         }
 
         currentDrawnCards.Clear();
+        Debug.Log("All drawn cards have been discarded.");
+    }
+
+        public List<Card> GetDeck() {
+        return deck;
     }
 
     public List<Card> GetCurrentDrawnCards() {
         return currentDrawnCards;
     }
 
-    public BoatType GetDeck() {
+    public BoatType GetDeckType() {
         return deckType;
     }
 
@@ -137,6 +152,8 @@ public class Cards : MonoBehaviour
             deck[i] = deck[randomIndex];
             deck[randomIndex] = indexCard;
         }
+
+        Debug.Log("Deck shuffled.");
     }
 
 }
