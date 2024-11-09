@@ -82,7 +82,6 @@ public class Player : MonoBehaviour
             if (playerBoat.GetBoatDeck().GetCurrentDrawnCards().Contains(card)) {
                 Debug.Log( name + " usó la carta: " + card.type);
                     StartCoroutine(CardAction(card));
-                    Debug.Log( "Empezo CardAction corrutine....");
             } }
             else {
                 Debug.Log("No es el turno de " + name);
@@ -94,17 +93,17 @@ public class Player : MonoBehaviour
                 case CardType.HEALTH: 
                     playerBoat.Repair(card.value);
                     Debug.Log(playerBoat.Integrity);
+                    // after each played card the boat moves 1 position. so we pass 0 to the card value, resulting in oldPositionIndex + 1
+                    playerBoat.Move(route, 0);
                     yield break;
-                case CardType.MOVEMENT: 
-                    // do movement
-                        Debug.Log(name + playerBoat.transform.position);                     
-                        yield return StartCoroutine(playerBoat.Move(route, card.value));
-                        
-                    
-                    break;
+                case CardType.MOVEMENT:                   
+                    playerBoat.Move(route, card.value);
+                    yield break;
                 case CardType.EMPTY:
                     playerBoat.Empty(card.value);
+                    // after each played card the boat moves 1 position. so we pass 0 to the card value, resulting in oldPositionIndex + 1
                     Debug.Log(playerBoat.Capacity);
+                    playerBoat.Move(route, 0);
                     yield break;
                 case CardType.ANCHOR:
                     // do anchor
