@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 
 // Clase Player. Esta clase se encargará de los comportamientos del jugador, en un principio es un solo archivo pero probablemente abarque más dependiendo de la complejidad. 
@@ -10,105 +11,144 @@ using UnityEngine.Tilemaps;
 // En Unity, la mayoría de los scripts que creamos van a heredar de la clase MonoBehaviour. Esta clase es creada por Unity, y facilita muchas cosas a la hora del manejo de un elemento de juego. Por ejemplo, contiene los métodos Start() y Update(), entre otros.
 // Que significa que "hereda"? Cuando una clase hereda de otra, esto quiere decir que puede utilizar métodos, campos y variables que definen o pertenecen a dicha clase. Ejemplo: Existe una clase Perro con el método Ladrar(). Tanto un Caniche como un Ovejero Alemán, que serían en este ejmplo distintas clases, van a heredar de la clase Perro y van a poder utilizar el método ladrar. 
 public class Player : MonoBehaviour
-{
-    // Todo lo que vemos antes del método Start() son fields o campos. Estos nos permiten guardar valores que luego vamos a utilizar en nuestro código. 
-
-    // Esto es una lista (List) de jugadores. La sintaxis es List<NombreDeLaClase>. Acá lo que estoy haciendo es instanciando una lista que va a ir agregando los elementos que posean la clase Player.  
-    public static List<Player> players = new();
-
-    // La palabra reservada "SerializedField" se utiliza para poder modificar en el editor de Unity el campo. Suele utilizarse para poder diseñar y probar cosas con facilidad, sin tener que meterte en el código cada vez que quieras cambiar algo. En este caso, el campo es de tipo flotante (número decimal) y se llama speed, la velociadad. Por default la puse en 5, pero puede ser modificada como mencioné anteriormente en el editor. La f luego del número es para especificar que el número es de tipo float. 
-    [SerializeField] private float speed = 5f;
-
+{   
     
-    // En este caso el campo es de tipo Vector3, esto es un Vector que posee 3 valores: rgb o xyz. Significan lo mismo y pueden utilizarse de manera intercambiable. En este caso, el vector va a indicarnos una posición a la cual queremos que nuestro jugador se dirija, por lo tanto tiene sentido entender los valores como xyz. 
-    private Vector3 target;
+    [SerializeField] private Boat playerBoat;
+    [SerializeField] private Route playerRoute;
 
-    // Este campo es de tipo booleano, puede ser verdadero o falso. Este tipo de variables suelen usarse para chequear si algo pasó o si se cumple determinada condición para poder luego realizar una acción. En este caso, la usaremos para chequear si el jugador ya se movió. 
-    private bool moved = false;
+    [SerializeField] private int cardsCount = 4;
 
-    // El método Start() es un método que provee Unity, y se llama en el primer frame.  
-    void Start()
+    private List<Card> drawnCards = new List<Card>();
+
+    public bool suscribed = false;
+    private void Awake()
     {
-        // Esto agrega mediante el método Add() a la lista que establecimos previamente. This es el elemento a cual está adherido el script, en este caso cada Player.  
-        players.Add(this);
-
-        // Acá establecemos inicialmente que la posición target será la misma que la posición del Player. Para eso accedemos al componente transform que pertenece al Player, y a su vez al Vector3 position, que es parte de transform. 
-        target = transform.position;
-    }
-
-    // El método Update es otro método establecido por Unity, que es llamado una vez por frame. 
-    void Update()
-    {
-
-        // MOVIMIENTO DEL JUGADOR
-
-        // La instrucción "if" es un condicional, esto es, una instrucción que va a corrobar que se cumpla cierta condición o condiciones antes de ejecutar el código en su interior. Dentro de los paréntesis pondremos las condiciones que requerimos y luego el código dentro de las llaves {}.
-        // Acá estamos comprobando tres condiciiones: 
-        // por un lado, si el usuario está apretando el botón izquierdo del mouse. Para chequear esto, utilizamos la clase otorgada por Unity "Input", y el método "GetMouseButtonDown()" que nos va a devolver true si el usuario está apretando en ese frame el botón indicado. Dentro de los () podemos poner 0 para indicar el botón izquierdo o 1 para indicar el botón derecho del mouse. 
-        // Segunda condición: Si el campo moved, creado por nosotros, es falso. Esto puede escribirse como !moved o como moved == false. Es decir, si el jugador NO se ha movido. 
-        // Última condición: acá hacemos uso de la lista: mediante el método IndexOf() vamos a corroborar si el índice de el objeto que posee este script, en este caso cada Player, es 0. Qué es el índice? El índice es la posición en la lista. Las listas en C# empiezan con el número 0. En este caso, el primer jugador va a tener la posición 0, y el segundo va a tener la posición o índice 1. Compruebo esto para decidir qué jugador va a moverse primero.  
-        // Todas las condiciones están unidas mediante && para indicar AND o Y. Esto significa que TODAS las condiciones deben cumplirse para poder ejecutar el código dentro del if. 
-        if(Input.GetMouseButtonDown(0) && !moved && players.IndexOf(this) == 0) {
-
-            // Si todas estas condiciones se cumplen, ejecuto el código:
-
-            // Para lograr que el jugador se mueva solo si clickeamos en uno de los puntos, utilizamos el método OverlapPoint de la clase Physics2D, pasando como parámetro el input del mouse. 
-            // Guardamos ese punto de "overlap", es decir, cuando se superponen la posición del mouse con el punto en cuestión, en una variable de tipo collider, para diferenciarla de otras posiciones en la pantalla. Para que esto funcione, los puntos deben tener el componente collider2d. 
-            Collider2D point = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-            // Chequeamos que efectivamente tal punto existe, y ahí igualamos el campo target a la posición del punto; cambiamos moved a verdadero, para poder así avanzar con el movimiento. 
-            if (point)
-            {
-                target = point.transform.position;
-                moved = true;
-            }
-
-            // Acá lo único que hago es establecer la posición z del target igual a la del jugador, puesto que al ser un juego 2d la posición z no es relevante, y para estar seguros es mejor que esté en un valor estable. 
-            target.z = transform.position.z;
+        if (TurnController.Instance == null)
+        {
+            Debug.LogWarning("TurnController not ready, retrying...");
+            return; 
         }
+        if (TurnController.Instance != null)
+        {
+            TurnController.Instance.OnTurnChanged += HandleTurnChanged;
+            Card.OnCardClicked += PlayCard;
+            suscribed = true;
+            Debug.Log(this + "Suscribed to the events.");
+        }
+        else
+        {
+            Debug.LogWarning("TurnController instance is null, cannot subscribe.");
+        }
+            
 
-            // Acá, fuera del if, utilizo el método MoveTowards de la estructura Vector3 de Unity para calcular la distancia que hay entre la posición del jugador y la posición del target. Luego me muevo hacia esa posición a la velocidad establecida previamente multiplicada por el tiempo.
-            // Con esta línea terminamos todo lo que refiere al MOVIMIENTO del jugador. 
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-
-            // CAMBIO DE TURNO
-
-            // Utilizamos nuevamente la instrucción if para comprobar determinadas condiciones antes de ejecutar el código:
-            // Chequeamos que la distancia entre la posición del jugador y el punto target sea muy pequeña. Osea, que el jugador llegó a destino. Comprobarlo de esta manera nos evita errores posibles en el código.  
-            // Luego confirmamos también que efectivamente se haya movido: recordemos que al principio la posición de target y del jugador es la misma, por lo que si no chequeamos si se movió puede haber errores (creanme los hubo :) ) 
-            // Finalmente confirmamos una vez más que el índice es 0. 
-            if(Vector2.Distance(transform.position, target) <= 0.01f && moved && players.IndexOf(this) == 0)
-            { 
-
-            // Para diferenciar al jugador que se movió le aplico temporalmente el color rojo. Esto lo hago llamando al componente SpriteRenderer que contienen todos los game objects de tipo Sprite. 
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-
-                // Acá mediante la instrucción de iteración "foreach" recorro todos los jugadores en la lista.
-                foreach(Player player in players) {
-                    // Si el jugador NO ES el que contiene el código, es decir, es el OTRO. 
-                    if (player != this) {
-
-                        // Cambio su variable moved a false, para que cuando cambiemos de turno pueda moverse. 
-                        player.moved = false;
-
-                        // Cambio su color a blanco, para volverlo al estado "original". 
-                        player.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                    }
-                }
-
-                // Después, mediante el método Reverse() INVIERTO la lista, por lo que el jugador en posición 1 pasa a la posición 0 y puede realizar su movimiento. De esta manera logro que una vez hecho el movimiento de un jugador, pase automáticamente al siguiente. 
-                // ACLARACIÓN: esto probablemente sea transitorio, porque no es sostenible si agregamos más jugadores. Pero por lo pronto funciona.                                 
-                players.Reverse();
-            }
     }
 
-    // Esto es una prueba para chequear cuando el jugador toca uno de los "Points". Por el momento solo imprime a la consola un mensaje que indica que lo tocamos. 
-    // Todavía está en proceso el tema de los tilemaps, colliders y como va a manejarse el movimiento del jugador a través del tablero. Sujeto a cambios.
-    private void OnTriggerEnter2D(Collider2D other) {
-            print("Touched Point");
-        
+    
+    private void OnDisable()
+    {
+            Debug.Log(this + "Unsuscribed to the events.");
+        Card.OnCardClicked -= PlayCard; 
+        TurnController.Instance.OnTurnChanged -= HandleTurnChanged;
+        suscribed = false;
     }
     
 
+
+    private void Update() {
+
+        // Por el momento "elegimos" la ruta presionando R. En realidad, en el editor de Unity arrastramos la Ruta que queremos a cada Player. Esto se modificará más adelante. 
+        // Al elegir la ruta, nuestro bote se coloca en la posición 0 de la misma.
+        if( Input.GetKeyDown(KeyCode.R) ) {
+            ChooseRoute(playerRoute);
+        }
+    }
+
+    private void HandleTurnChanged(Player currentPlayer)
+    {
+        Debug.Log($"{name} received turn change. Current player is {currentPlayer.name}");
+        Debug.Log($"Current Player: {currentPlayer.name}, This Player: {name}");
+        if (currentPlayer == this)
+        {
+            Debug.Log(name + " puede tomar su turno.");
+            DrawCards();
+        }
+    }
+
+    private void PlayCard(Card card)
+    {
+        Debug.Log($"Attempting to play card: {card.type}. Current player: {TurnController.Instance.CurrentPlayer().name}. This player: {name}");
+        if (TurnController.Instance.IsCurrentPlayer(this) ) {
+            Debug.Log("Current player confirmed.");
+            if (playerBoat.GetBoatDeck().GetCurrentDrawnCards().Contains(card)) {
+                Debug.Log( name + " usó la carta: " + card.type);
+                    StartCoroutine(CardAction(card));
+                    Debug.Log( "Empezo CardAction corrutine....");
+            } }
+            else {
+                Debug.Log("No es el turno de " + name);
+            }
+    }
+
+    private IEnumerator GetCardType(Card card, Route route) {
+            switch(card.type) {
+                case CardType.HEALTH: 
+                    playerBoat.Repair(card.value);
+                    Debug.Log(playerBoat.Integrity);
+                    yield break;
+                case CardType.MOVEMENT: 
+                    // do movement
+                        Debug.Log(name + playerBoat.transform.position);                     
+                        yield return StartCoroutine(playerBoat.Move(route, card.value));
+                        
+                    
+                    break;
+                case CardType.EMPTY:
+                    playerBoat.Empty(card.value);
+                    Debug.Log(playerBoat.Capacity);
+                    yield break;
+                case CardType.ANCHOR:
+                    // do anchor
+                    yield break;
+            }
+            
+    }
+    private IEnumerator CardAction(Card card) {
+                    Debug.Log(playerBoat.name);
+                    yield return StartCoroutine(GetCardType(card, playerRoute));  
+                    playerBoat.GetBoatDeck().DiscardAll();
+                    TurnController.Instance.SwitchTurn();
+            
+    }
+
+
+    public void ChooseBoat(Boat boat) {
+
+    }
+
+    public void ChooseRoute(Route route) {
+        playerBoat.transform.position = route.GetPoints()[0].transform.position;
+    }
+
+    public void DrawCards() {
+        Cards deck = playerBoat.GetBoatDeck();
+        if(deck) {
+            List<Card> newCards = deck.DrawCards(cardsCount);
+            drawnCards.AddRange(newCards); 
+            Debug.Log(name + " has drawn " + newCards.Count + " cards.");
+        }
+    }
+
+    public void ClearDrawnCards() {
+        Debug.Log("Before clearing: " + drawnCards.Count);
+        foreach (Card card in drawnCards) {
+            card.GetComponent<CardDisplay>().SetAlpha(card, 0f); 
+            Debug.Log("Im clearing the drawncards...");
+        }
+        drawnCards.Clear();
+        Debug.Log("After clearing: " + drawnCards.Count);
+    }
+
+    public void Shuffle() {
+
+    }
 }

@@ -6,39 +6,136 @@ using UnityEngine.UI;
 // La clase Cards plural se encargará del comportamiento del mazo de cartas, por el momento único, pero luego serán de acuerdo a cada tipo de barco. 
 public class Cards : MonoBehaviour
 {
-    // Este campo creará una lista de cartas, el mazo, a partir de las cartas a las que hagamos referencia en el editor.
-    [SerializeField] List<Card> deck = new();
 
-    // En este campo se hará un array de slots o lugares disponibles adonde se colocarán las cartas. Representarían nuestra "mano". La palabra reservada "Transform" indica que estamos referenciando el componente Transform de en este caso los gameobjects vacíos, esto es, vamos a querer acceder a su posición. 
-    [SerializeField] Transform[] cardSlots;
+    [SerializeField] GameObject cardPrefab;
+    [SerializeField] List<Transform> cardPositions;
+    [SerializeField] private DeckData strongDeck, bigDeck, fastDeck; 
+    private List<Card> deck = new List<Card>();
+    private List<Card> discardDeck = new List<Card>();
+    private List<Card> currentDrawnCards = new List<Card>(); 
 
-    // Acá armamos un array de booleanas de acuerdo a la disponibilidad de nuestra mano. Cuando un lugar deja de estar disponible, pasa a ser false y no podremos poner una carta ahí.
-    [SerializeField] bool[] availableCardSlots;
+    private BoatType deckType;
+    
 
-    // El método DrawCard se encarga del comportamiento al apretar el botón de Retirar Carta en el juego. Esto se vincula desde el editor de Unity. 
-    public void DrawCard() {
-        // Primero chequeamos que el mazo tenga cartas.
-        if (deck.Count >= 1) {
-            // Luego aleatorizamos el mazo y le asignamos una variable a esa carta aleatoria.
-            Card randomCard = deck[Random.Range(0, deck.Count)];
+    public void GenerateDeck(BoatType boatType) {
+        deck.Clear();
 
-            // Recorremos el array de lugares disponibles en la mano
-            for (int i = 0; i < availableCardSlots.Length; i++) {
-                // Si hay lugar disponible
-                if (availableCardSlots[i]) {
-                    // Activamos la carta aleatoria en el editor.
-                    randomCard.gameObject.SetActive(true);
-                    // Hacemos que la posición de dicha carta sea igual a alguno de los lugares disponibles en nuestra mano.
-                    randomCard.gameObject.transform.position = cardSlots[i].position;
-                    // El lugar tomado pasa a no estar disponible, osea falso.
-                    availableCardSlots[i] = false;
-                    // Quitamos la carta agarrada del mazo.
-                    deck.Remove(randomCard);
-                    // Salimos del loop.
-                    return;
-                } 
+        DeckData deckData = null;
+
+        switch (boatType) {
+            case BoatType.BIG:
+                deckData = bigDeck;
+                deckType = BoatType.BIG;
+                break;
+            case BoatType.FAST:
+                deckData = fastDeck;
+                deckType = BoatType.FAST;
+                break;
+            case BoatType.STRONG:
+                deckData = strongDeck;     
+                deckType = BoatType.STRONG;      
+                break;
+        }
+
+        if (deckData) {
+            AddCardsToDeck(CardType.HEALTH, deckData.healthCardCount);
+            AddCardsToDeck(CardType.MOVEMENT, deckData.movementCardCount);
+            AddCardsToDeck(CardType.EMPTY, deckData.emptyCardCount);
+            AddCardsToDeck(CardType.ANCHOR, deckData.anchorCardCount);
+        }
+
+        Shuffle();
+    }
+
+    public List<Card> DrawCards(int count) {
+        if (deck.Count == 0) {
+            ReshuffleDiscardDeck();
+        }
+        
+        currentDrawnCards.Clear();
+
+
+
+        for (int i = 0; i < count && deck.Count > 0; i++) {
+            int randomIndex = Random.Range(0, deck.Count);
+            Card drawnCard = deck[0];
+            drawnCard.gameObject.SetActive(true);
+            deck.RemoveAt(0);
+            currentDrawnCards.Add(drawnCard);
+            CardDisplay displayCard = drawnCard.GetComponent<CardDisplay>();
+            displayCard.SetCardAppearance(drawnCard);
+            DisplayCard(drawnCard, i);
+            Debug.Log("i displayed the card" + displayCard);
+        }
+
+        Debug.Log("Current Deck Count after drawing cards: " + deck.Count);
+        return currentDrawnCards; 
+
+    }
+
+    private void ReshuffleDiscardDeck()
+    {
+        if (discardDeck.Count > 0) {
+            deck.AddRange(discardDeck);
+            discardDeck.Clear();
+            Shuffle();
+        }
+    }
+
+    private void AddCardsToDeck(CardType cardType, int count) {
+        for(int i = 0; i < count; i++) {
+            GameObject cardObject = Instantiate(cardPrefab);
+            Card card = cardObject.GetComponent<Card>();
+            CardDisplay displayCard = card.GetComponent<CardDisplay>();
+            card.type = cardType;
+            // displayCard.SetAlpha(card, 0f);
+           // card.gameObject.SetActive(false);
+            if ( cardType != CardType.ANCHOR ) {
+                card.value = Random.Range(1, 4);
             }
+            else {
+                card.value = 0;
+            }
+            deck.Add(card);
+        }
+    }
 
+    private void DisplayCard(Card card, int positionIndex)
+    {
+        if (positionIndex < cardPositions.Count)
+        {
+            card.transform.position = cardPositions[positionIndex].position;
+            card.gameObject.SetActive(true);
+        }
+    }
+
+    public void DiscardCard(Card card) {
+        discardDeck.Add(card);
+    }
+
+    public void DiscardAll() {
+        foreach(Card card in currentDrawnCards) {
+            card.gameObject.SetActive(false);
+            DiscardCard(card);
+        }
+
+        currentDrawnCards.Clear();
+    }
+
+    public List<Card> GetCurrentDrawnCards() {
+        return currentDrawnCards;
+    }
+
+    public BoatType GetDeck() {
+        return deckType;
+    }
+
+    public void Shuffle() {
+        for (int i = 0; i < deck.Count; i++) {
+            Card indexCard = deck[i];
+            int randomIndex = Random.Range(i, deck.Count);
+            deck[i] = deck[randomIndex];
+            deck[randomIndex] = indexCard;
         }
     }
 

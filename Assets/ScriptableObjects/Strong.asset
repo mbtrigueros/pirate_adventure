@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb1561745fbef9b4198a71f32b3272e3, type: 3}
-  m_Name: MovementCard 1
+  m_Name: Strong
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.9504018, b: 0, a: 1}
-  type: Movement
-  value: 1
+  healthCardCount: 15
+  movementCardCount: 10
+  emptyCardCount: 10
+  anchorCardCount: 5
