@@ -1,11 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Boat : MonoBehaviour
 {
     [SerializeField] private Cards boatDeck;  // The Cards object containing the deck
@@ -19,6 +15,8 @@ public class Boat : MonoBehaviour
 
     [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
+
+    public event Action OnBoatSunk; 
 
     // Start is called before the first frame update
     private void Awake() 
@@ -41,7 +39,9 @@ public class Boat : MonoBehaviour
 
     void Update()
     {
-        // Add any periodic update logic here
+        if (sunken) {
+            OnBoatSunk?.Invoke();
+        }
     }
 
     int oldPositionIndex = 0;
@@ -49,21 +49,26 @@ public class Boat : MonoBehaviour
     // Method for moving the boat along the route
     public void Move(Route route, int cardValue) 
     {
+        if (sunken) return; // If the boat is sunken, don't allow movement
         var routeIndex = oldPositionIndex + cardValue + 1;  
         oldPositionIndex = routeIndex;
         transform.position = route.GetPoints()[routeIndex].transform.position;
     }
 
     // Repair the boat by increasing its integrity
-    public void Repair(int health)
-    {
+    public void Repair(int health) {
         Integrity += health;
+        if (Integrity > 0 && Capacity > 0) {
+            sunken = false; 
+        }
     }
 
     // Empty water from the boat by decreasing its capacity
-    public void Empty(int water)
-    {
+    public void Empty(int water) {
         Capacity += water;
+        if (Integrity > 0 && Capacity > 0) {
+            sunken = false; 
+        }
     }
 
     private void Anchor() 
@@ -74,6 +79,15 @@ public class Boat : MonoBehaviour
     private void CheckAnchoring()
     {
         // Check if the boat is anchored and update state accordingly
+    }
+
+    public void ResetToLastPort(Route route)
+    {
+            var section = route.GetSection();
+            var port = section.GetPorts()[0];
+            transform.position = port.transform.position;
+            Debug.Log("The boat has been reset to the starting position.");
+        
     }
 
     // Handle damage taken by the boat

@@ -18,8 +18,11 @@ public class Route : MonoBehaviour
     {
         
     }
-
     public Point[] GetPoints() {
         return points;
+    }
+
+    public Section GetSection() {
+        return transform.root.gameObject.GetComponent<Section>();
     }
 }

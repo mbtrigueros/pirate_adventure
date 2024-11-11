@@ -35,12 +35,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Start() {
+        if (playerBoat != null && playerRoute != null) {
+            playerBoat.OnBoatSunk += HandleBoatSunk;
+            playerBoat.ResetToLastPort(playerRoute);
+        } else {
+            Debug.LogError("No boat found in the scene.");
+        }
+    }
+    
+    private void HandleBoatSunk()
+    {
+        Debug.Log("The boat has sunk.");
+        playerBoat.ResetToLastPort(playerRoute);
+    }
+
     private void OnDisable()
     {
         Debug.Log(this + " Unsuscribed from the events.");
         Card.OnCardClicked -= PlayCard;
         TurnController.Instance.OnTurnChanged -= HandleTurnChanged;
         suscribed = false;
+        playerBoat.OnBoatSunk -= HandleBoatSunk;
     }
 
     private void Update()
