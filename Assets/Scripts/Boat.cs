@@ -16,6 +16,9 @@ public class Boat : MonoBehaviour
     [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
 
+    public event Action<int> OnIntegrityChanged;
+    public event Action<int> OnCapacityChanged; 
+
     public event Action OnBoatSunk; 
 
     // Start is called before the first frame update
@@ -57,7 +60,8 @@ public class Boat : MonoBehaviour
 
     // Repair the boat by increasing its integrity
     public void Repair(int health) {
-        Integrity += health;
+        Integrity = Mathf.Clamp(Integrity + health, 0, integrity);
+        OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity > 0 && Capacity > 0) {
             sunken = false; 
         }
@@ -65,7 +69,8 @@ public class Boat : MonoBehaviour
 
     // Empty water from the boat by decreasing its capacity
     public void Empty(int water) {
-        Capacity += water;
+        Capacity = Mathf.Clamp(Capacity + water, 0, capacity);
+        OnCapacityChanged?.Invoke(Capacity);
         if (Integrity > 0 && Capacity > 0) {
             sunken = false; 
         }
@@ -93,8 +98,9 @@ public class Boat : MonoBehaviour
     // Handle damage taken by the boat
     public void TakeDamage(int damage) 
     {
-        Integrity -= damage;
+        Integrity = Mathf.Clamp(Integrity - damage, 0, integrity);
         Debug.Log("You hit a rock and took " + damage + " damage. Your integrity is now: " + Integrity);
+        OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity <= 0) 
         { 
             sunken = true; 
@@ -105,8 +111,9 @@ public class Boat : MonoBehaviour
     // Handle water taken by the boat
     public void TakeWater(int water) 
     {
-        Capacity -= water;
+        Capacity = Mathf.Clamp(Capacity - water, 0, capacity);      
         Debug.Log("You took on " + water + " units of water. Your capacity is now: " + Capacity);
+        OnCapacityChanged?.Invoke(Capacity);
         if (Capacity <= 0) 
         { 
             sunken = true; 
