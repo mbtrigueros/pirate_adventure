@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Section : MonoBehaviour
 {
+    [SerializeField] Point[] ports;
+    [SerializeField] Route[] routes;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +16,10 @@ public class Section : MonoBehaviour
     void Update()
     {
         
+    }
+
+    
+    public Point[] GetPorts() {
+        return ports;
     }
 }
