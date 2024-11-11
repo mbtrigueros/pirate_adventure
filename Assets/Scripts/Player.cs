@@ -161,4 +161,8 @@ public class Player : MonoBehaviour
     {
         // If you want to shuffle the player's deck, you can call playerBoat.GetBoatDeck().Shuffle();
     }
+
+    public Boat GetPlayerBoat() {
+        return playerBoat;
+    }
 }
