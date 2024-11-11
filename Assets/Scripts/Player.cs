@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void HandleTurnChanged(Player currentPlayer)
+    public void HandleTurnChanged(Player currentPlayer)
     {
         Debug.Log($"{name} received turn change. Current player is {currentPlayer.name}");
         if (currentPlayer == this)

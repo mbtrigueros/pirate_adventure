@@ -8,7 +8,7 @@ public class Boat : MonoBehaviour
     public int Integrity { get; private set; }
     public int Capacity { get; private set; }
 
-    [SerializeField] private int integrity, capacity;
+    [SerializeField] private int maxIntegrity, maxCapacity;
 
     [SerializeField] private int anchoring; // estado de fondeo.
     [SerializeField] private BoatType boatType;
@@ -36,8 +36,8 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
-        Integrity = integrity;
-        Capacity = capacity;
+        Integrity = maxIntegrity;
+        Capacity = maxCapacity;
     }
 
     void Update()
@@ -52,15 +52,18 @@ public class Boat : MonoBehaviour
     // Method for moving the boat along the route
     public void Move(Route route, int cardValue) 
     {
-        if (sunken) return; // If the boat is sunken, don't allow movement
-        var routeIndex = oldPositionIndex + cardValue + 1;  
+        if (sunken) {
+            oldPositionIndex = 0; 
+            return;
+        }
+        var routeIndex = oldPositionIndex + cardValue + 1;   
         oldPositionIndex = routeIndex;
         transform.position = route.GetPoints()[routeIndex].transform.position;
     }
 
     // Repair the boat by increasing its integrity
     public void Repair(int health) {
-        Integrity = Mathf.Clamp(Integrity + health, 0, integrity);
+        Integrity = Mathf.Clamp(Integrity + health, 0, maxIntegrity);
         OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity > 0 && Capacity > 0) {
             sunken = false; 
@@ -69,7 +72,7 @@ public class Boat : MonoBehaviour
 
     // Empty water from the boat by decreasing its capacity
     public void Empty(int water) {
-        Capacity = Mathf.Clamp(Capacity + water, 0, capacity);
+        Capacity = Mathf.Clamp(Capacity + water, 0, maxCapacity);
         OnCapacityChanged?.Invoke(Capacity);
         if (Integrity > 0 && Capacity > 0) {
             sunken = false; 
@@ -95,10 +98,18 @@ public class Boat : MonoBehaviour
         
     }
 
+    public int GetMaxIntegrity() {
+        return maxIntegrity;
+    }
+    
+    public int GetMaxCapacity() {
+        return maxCapacity;
+    }
+
     // Handle damage taken by the boat
     public void TakeDamage(int damage) 
     {
-        Integrity = Mathf.Clamp(Integrity - damage, 0, integrity);
+        Integrity = Mathf.Clamp(Integrity - damage, 0, maxIntegrity);
         Debug.Log("You hit a rock and took " + damage + " damage. Your integrity is now: " + Integrity);
         OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity <= 0) 
@@ -111,7 +122,7 @@ public class Boat : MonoBehaviour
     // Handle water taken by the boat
     public void TakeWater(int water) 
     {
-        Capacity = Mathf.Clamp(Capacity - water, 0, capacity);      
+        Capacity = Mathf.Clamp(Capacity - water, 0, maxCapacity);      
         Debug.Log("You took on " + water + " units of water. Your capacity is now: " + Capacity);
         OnCapacityChanged?.Invoke(Capacity);
         if (Capacity <= 0) 
@@ -133,16 +144,15 @@ public class Boat : MonoBehaviour
         }
     }
 
-    // Return the Cards object, not the List<Card>
     public Cards GetBoatDeck() 
     {
-        return boatDeck;  // Return the Cards object directly
+        return boatDeck;  
     }
 
     private bool hasCollided = false;
 
     // Collision handling logic
-    private void OnTriggerStay2D(Collider2D point) 
+    private void OnTriggerEnter2D(Collider2D point) 
     {
         if (!hasCollided) 
         {
