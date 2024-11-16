@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Boat playerBoat;
     [SerializeField] private Route playerRoute;
-    [SerializeField] private int cardsCount = 4;
+    [SerializeField] private int cardsCount = 2;
 
     private List<Card> drawnCards = new List<Card>();
     public bool suscribed = false;

@@ -8,5 +8,6 @@ public class DeckData : ScriptableObject
     public int healthCardCount;
     public int movementCardCount;
     public int emptyCardCount;
+    public int attackCardCount;
     public int anchorCardCount;
 }

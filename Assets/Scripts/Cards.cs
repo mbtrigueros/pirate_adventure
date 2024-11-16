@@ -43,6 +43,7 @@ public class Cards : MonoBehaviour
             AddCardsToDeck(CardType.MOVEMENT, deckData.movementCardCount);
             AddCardsToDeck(CardType.EMPTY, deckData.emptyCardCount);
             AddCardsToDeck(CardType.ANCHOR, deckData.anchorCardCount);
+            AddCardsToDeck(CardType.ATTACK, deckData.anchorCardCount);
         }
 
         Shuffle();
@@ -96,9 +97,7 @@ public class Cards : MonoBehaviour
         for(int i = 0; i < count; i++) {
             GameObject cardObject = Instantiate(cardPrefab);
             Card card = cardObject.GetComponent<Card>();
-            CardDisplay displayCard = card.GetComponent<CardDisplay>();
             card.type = cardType;
-            // displayCard.SetAlpha(card, 0f);
             card.gameObject.SetActive(false);
             if ( cardType != CardType.ANCHOR ) {
                 card.value = Random.Range(1, 4);

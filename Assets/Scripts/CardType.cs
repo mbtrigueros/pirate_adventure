@@ -2,5 +2,6 @@ public enum CardType {
     HEALTH,
     MOVEMENT,
     EMPTY,
-    ANCHOR
+    ANCHOR, 
+    ATTACK
 }
