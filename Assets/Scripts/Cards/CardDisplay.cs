@@ -23,17 +23,17 @@ public class CardDisplay : MonoBehaviour
 
       //  SetAlpha(card, 1f);
 
-        switch(card.type) {
-            case CardType.HEALTH: 
+        switch(card.action) {
+            case CardAction.HEALTH: 
                 cardImage.color = Color.green;
                 break;
-            case CardType.MOVEMENT:
+            case CardAction.MOVEMENT:
                 cardImage.color = Color.yellow;
                 break;
-            case CardType.EMPTY: 
+            case CardAction.EMPTY: 
                 cardImage.color = Color.blue;
                 break;
-            case CardType.ANCHOR:
+            case CardAction.ANCHOR:
                 cardImage.color = Color.red;
                 break;
         }

@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Current player confirmed.");
             Debug.Log(name + " used the card: " + card.type);
-            StartCoroutine(CardAction(card));
+            StartCoroutine(CardPlayAction(card));
         }
         else
         {
@@ -92,31 +92,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator CardAction(Card card)
+    private IEnumerator CardPlayAction(Card card)
     {
-        yield return StartCoroutine(GetCardType(card, playerRoute));
+        yield return StartCoroutine(GetCardAction(card, playerRoute));
         playerBoat.GetBoatDeck().DiscardAll();      
         TurnController.Instance.SwitchTurn();
     }
 
-    private IEnumerator GetCardType(Card card, Route route)
+    private IEnumerator GetCardAction(Card card, Route route)
     {
-        switch (card.type)
+        switch (card.action)
         {
-            case CardType.HEALTH:
+            case CardAction.HEALTH:
                 playerBoat.Repair(card.value);
                 Debug.Log(playerBoat.Integrity);
                 playerBoat.Move(route, 0);
                 yield break;
-            case CardType.MOVEMENT:
+            case CardAction.MOVEMENT:
                 playerBoat.Move(route, card.value);
                 yield break;
-            case CardType.EMPTY:
+            case CardAction.EMPTY:
                 playerBoat.Empty(card.value);
                 playerBoat.Move(route, 0);
                 Debug.Log(playerBoat.Capacity);
                 yield break;
-            case CardType.ANCHOR:
+            case CardAction.ANCHOR:
                 // Do anchor action
                 yield break;
         }

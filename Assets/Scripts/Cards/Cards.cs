@@ -10,7 +10,7 @@ public class Cards : MonoBehaviour
     [SerializeField] GameObject cardPrefab;
     [SerializeField] List<Transform> cardPositions;
     [SerializeField] private DeckData strongDeck, bigDeck, fastDeck; 
-    private List<Card> deck = new List<Card>();
+    [SerializeField] private List<Card> deck = new List<Card>();
     private List<Card> discardDeck = new List<Card>();
     private List<Card> currentDrawnCards = new List<Card>(); 
 
@@ -39,11 +39,11 @@ public class Cards : MonoBehaviour
         }
 
         if (deckData) {
-            AddCardsToDeck(CardType.HEALTH, deckData.healthCardCount);
-            AddCardsToDeck(CardType.MOVEMENT, deckData.movementCardCount);
-            AddCardsToDeck(CardType.EMPTY, deckData.emptyCardCount);
-            AddCardsToDeck(CardType.ANCHOR, deckData.anchorCardCount);
-            AddCardsToDeck(CardType.ATTACK, deckData.anchorCardCount);
+            AddCardsToDeck(CardAction.HEALTH, deckData.healthCardCount);
+            AddCardsToDeck(CardAction.MOVEMENT, deckData.movementCardCount);
+            AddCardsToDeck(CardAction.EMPTY, deckData.emptyCardCount);
+            AddCardsToDeck(CardAction.ANCHOR, deckData.anchorCardCount);
+            AddCardsToDeck(CardAction.ATTACK, deckData.attackCardCount);
         }
 
         Shuffle();
@@ -85,7 +85,7 @@ public class Cards : MonoBehaviour
         if (discardDeck.Count > 0) {
             deck.AddRange(discardDeck);
             discardDeck.Clear();
-            Shuffle(); // Shuffle the deck again
+            Shuffle(); 
             Debug.Log("Deck reshuffled. Cards remaining: " + deck.Count);
         }
         else {
@@ -93,13 +93,13 @@ public class Cards : MonoBehaviour
         }
     }
 
-    private void AddCardsToDeck(CardType cardType, int count) {
+    private void AddCardsToDeck(CardAction cardAction, int count) {
         for(int i = 0; i < count; i++) {
             GameObject cardObject = Instantiate(cardPrefab);
             Card card = cardObject.GetComponent<Card>();
-            card.type = cardType;
+            card.action = cardAction;
             card.gameObject.SetActive(false);
-            if ( cardType != CardType.ANCHOR ) {
+            if ( cardAction != CardAction.ANCHOR ) {
                 card.value = Random.Range(1, 4);
             }
             else {

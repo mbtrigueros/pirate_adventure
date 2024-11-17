@@ -1,4 +1,4 @@
-public enum CardType {
+public enum CardAction {
     HEALTH,
     MOVEMENT,
     EMPTY,
