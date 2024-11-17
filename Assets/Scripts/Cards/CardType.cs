@@ -1,4 +1,5 @@
 public enum CardType {
     ACTION,
-    TRIPULATION
+    CAPTAIN,
+    CREW
 }

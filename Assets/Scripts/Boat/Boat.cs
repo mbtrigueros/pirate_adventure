@@ -11,7 +11,6 @@ public class Boat : MonoBehaviour
     [SerializeField] private int maxIntegrity, maxCapacity;
 
     [SerializeField] private int anchoring; // estado de fondeo.
-    [SerializeField] private BoatType boatType;
 
     [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
@@ -26,8 +25,8 @@ public class Boat : MonoBehaviour
     {
         // Initialize the boat deck
         if (boatDeck != null) {
-            boatDeck.GenerateDeck(boatType);
-            Debug.Log("Deck Generated: " + boatDeck.GetDeckType() + " Kind of Boat I am: " + this.boatType);
+            boatDeck.GenerateDeck();
+            Debug.Log("Deck Generated");
         }
         else {
             Debug.LogError("Boat deck not assigned in inspector!");
@@ -56,7 +55,7 @@ public class Boat : MonoBehaviour
             oldPositionIndex = 0; 
             return;
         }
-        var routeIndex = oldPositionIndex + cardValue + 1;   
+        var routeIndex = oldPositionIndex + cardValue;   
         oldPositionIndex = routeIndex;
         transform.position = route.GetPoints()[routeIndex].transform.position;
     }
@@ -89,13 +88,13 @@ public class Boat : MonoBehaviour
         // Check if the boat is anchored and update state accordingly
     }
 
-    public void ResetToLastPort(Route route)
+    public void ResetToPort(Route route)
     {
-            var section = route.GetSection();
-            var port = section.GetPorts()[0];
-            transform.position = port.transform.position;
+            Repair(maxIntegrity);
+            Empty(maxCapacity);
+            transform.position = route.GetPoints()[0].transform.position;
             Debug.Log("The boat has been reset to the starting position.");
-        
+            Debug.Log("Stat have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
     }
 
     public int GetMaxIntegrity() {
@@ -136,7 +135,7 @@ public class Boat : MonoBehaviour
     public void GenerateBoatDeck() 
     {
         if (boatDeck != null) {
-            boatDeck.GenerateDeck(boatType);
+            boatDeck.GenerateDeck();
             Debug.Log("Generating deck...");
         }
         else {

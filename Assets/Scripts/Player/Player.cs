@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private List<Player> players;
     [SerializeField] private Boat playerBoat;
     [SerializeField] private Route playerRoute;
     [SerializeField] private int cardsCount = 2;
@@ -36,9 +37,10 @@ public class Player : MonoBehaviour
     }
 
     private void Start() {
+        players.Add(this);
         if (playerBoat != null && playerRoute != null) {
             playerBoat.OnBoatSunk += HandleBoatSunk;
-            playerBoat.ResetToLastPort(playerRoute);
+            playerBoat.ResetToPort(playerRoute);
         } else {
             Debug.LogError("No boat found in the scene.");
         }
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
     private void HandleBoatSunk()
     {
         Debug.Log("The boat has sunk.");
-        playerBoat.ResetToLastPort(playerRoute);
+        playerBoat.ResetToPort(playerRoute);
     }
 
     private void OnDisable()
@@ -61,10 +63,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ChooseRoute(playerRoute);
-        }
     }
 
     public void HandleTurnChanged(Player currentPlayer)
@@ -101,30 +99,32 @@ public class Player : MonoBehaviour
 
     private IEnumerator GetCardAction(Card card, Route route)
     {
+
+        CaptainCard captainCard = card as CaptainCard;
         switch (card.action)
         {
             case CardAction.HEALTH:
-                playerBoat.Repair(card.value);
-                Debug.Log(playerBoat.Integrity);
-                playerBoat.Move(route, 0);
+            if (captainCard ) { playerBoat.TakeWater(captainCard.secondValue); }
+                playerBoat.Repair(card.firstValue);
                 yield break;
             case CardAction.MOVEMENT:
-                playerBoat.Move(route, card.value);
+            if (captainCard) { playerBoat.TakeWater(captainCard.secondValue); }
+                playerBoat.Move(route, card.firstValue);
                 yield break;
             case CardAction.EMPTY:
-                playerBoat.Empty(card.value);
-                playerBoat.Move(route, 0);
-                Debug.Log(playerBoat.Capacity);
+                playerBoat.Empty(card.firstValue);
                 yield break;
-            case CardAction.ANCHOR:
+            case CardAction.ATTACK:
+                foreach(Player otherPlayer in players) {
+                    if(otherPlayer != TurnController.Instance.CurrentPlayer()) {
+                        otherPlayer.playerBoat.TakeDamage(card.firstValue);
+                    }
+                }
+                yield break;
+            case CardAction.BUOY:
                 // Do anchor action
                 yield break;
         }
-    }
-
-    public void ChooseRoute(Route route)
-    {
-        playerBoat.transform.position = route.GetPoints()[0].transform.position;
     }
 
     public void DrawCards()
@@ -150,16 +150,11 @@ public class Player : MonoBehaviour
         Debug.Log("Before clearing: " + drawnCards.Count);
         foreach (Card card in drawnCards)
         {
-            card.GetComponent<CardDisplay>().SetAlpha(card, 0f);
+            card.gameObject.SetActive(false);
             Debug.Log("Clearing the drawn cards...");
         }
         drawnCards.Clear();
         Debug.Log("After clearing: " + drawnCards.Count);
-    }
-
-    public void Shuffle()
-    {
-        // If you want to shuffle the player's deck, you can call playerBoat.GetBoatDeck().Shuffle();
     }
 
     public Boat GetPlayerBoat() {

@@ -16,33 +16,8 @@ public class CardDisplay : MonoBehaviour
     public void Update() {
 
     }
-    public void SetCardAppearance(Card card)
-    {
-        
-        valueText.text = card.value > 0 ? card.value.ToString() : "Anchor";
-
-      //  SetAlpha(card, 1f);
-
-        switch(card.action) {
-            case CardAction.HEALTH: 
-                cardImage.color = Color.green;
-                break;
-            case CardAction.MOVEMENT:
-                cardImage.color = Color.yellow;
-                break;
-            case CardAction.EMPTY: 
-                cardImage.color = Color.blue;
-                break;
-            case CardAction.ANCHOR:
-                cardImage.color = Color.red;
-                break;
-        }
-    }
-
-    public void SetAlpha(Card card, float alpha) {
-        alpha = Mathf.Clamp01(alpha);
-        Color color = cardImage.color;
-        color.a = alpha; 
-        cardImage.color = color;
+    public void SetCardAppearance(Card card) {
+        valueText.text = card.firstValue > 0 ? card.firstValue.ToString() + card.action.ToString() : "" + card.action.ToString();
+        cardImage.sprite = card.image;
     }
 }

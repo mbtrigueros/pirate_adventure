@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1561745fbef9b4198a71f32b3272e3, type: 3}
-  m_Name: Fast
+  m_Script: {fileID: 11500000, guid: 3e82ccf3459bac44ca2e7cfb6f3536c4, type: 3}
+  m_Name: Bel
   m_EditorClassIdentifier: 
-  healthCardCount: 10
-  movementCardCount: 15
-  emptyCardCount: 10
-  anchorCardCount: 5
+  name: Bel
+  type: 2
+  image: {fileID: 0}
+  action: 0
+  firstValue: 1
+  alternativeAction: 1
+  secondValue: 1

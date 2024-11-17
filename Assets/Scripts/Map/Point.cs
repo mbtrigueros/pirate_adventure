@@ -21,7 +21,7 @@ public class Point : MonoBehaviour
         return transform.position;
     }
 
-    public PointType GetType() {
+    public new PointType GetType() {
         return type;
     }
 

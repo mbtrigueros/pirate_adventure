@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 767234085}
   - component: {fileID: 767234084}
   m_Layer: 0
-  m_Name: DeckManager
+  m_Name: Deck
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1451,13 +1451,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d385ecb3703dcd44ea77f3b71af3469b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 2501262421663882396, guid: 4108b0241fec5dc489ffbaeaf87529e7, type: 3}
   cardPositions:
   - {fileID: 1796887671}
   - {fileID: 1035877645}
-  strongDeck: {fileID: 11400000, guid: 2510a8542b3b9ec4aa4e855efebabde3, type: 2}
-  bigDeck: {fileID: 11400000, guid: a9de4261d91f16a48914b5042f41f364, type: 2}
-  fastDeck: {fileID: 11400000, guid: e42e11d7a70a9f844a769eea30ecd600, type: 2}
+  deck:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &767234085
 Transform:
   m_ObjectHideFlags: 0
@@ -1484,7 +1511,7 @@ GameObject:
   - component: {fileID: 798136305}
   - component: {fileID: 798136304}
   m_Layer: 0
-  m_Name: DeckManager (1)
+  m_Name: Deck1
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1502,13 +1529,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d385ecb3703dcd44ea77f3b71af3469b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 2501262421663882396, guid: 4108b0241fec5dc489ffbaeaf87529e7, type: 3}
   cardPositions:
   - {fileID: 1796887671}
   - {fileID: 1035877645}
-  strongDeck: {fileID: 11400000, guid: 2510a8542b3b9ec4aa4e855efebabde3, type: 2}
-  bigDeck: {fileID: 11400000, guid: a9de4261d91f16a48914b5042f41f364, type: 2}
-  fastDeck: {fileID: 11400000, guid: e42e11d7a70a9f844a769eea30ecd600, type: 2}
+  deck:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &798136305
 Transform:
   m_ObjectHideFlags: 0
@@ -2008,7 +2062,6 @@ MonoBehaviour:
   maxIntegrity: 5
   maxCapacity: 5
   anchoring: 0
-  boatType: 1
   speed: 5
   sunken: 0
 --- !u!61 &1135013145
@@ -3705,7 +3758,6 @@ MonoBehaviour:
   maxIntegrity: 5
   maxCapacity: 5
   anchoring: 0
-  boatType: 0
   speed: 5
   sunken: 0
 --- !u!212 &2055163858

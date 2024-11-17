@@ -2,6 +2,6 @@ public enum CardAction {
     HEALTH,
     MOVEMENT,
     EMPTY,
-    ANCHOR, 
+    BUOY, 
     ATTACK
 }

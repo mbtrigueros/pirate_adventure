@@ -123,8 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a641174c5272c74da14e0e21216dd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
   type: 0
-  value: 0
+  action: 0
+  image: {fileID: 0}
+  name: 
+  firstValue: 0
 --- !u!61 &5631350043893577155
 BoxCollider2D:
   m_ObjectHideFlags: 0

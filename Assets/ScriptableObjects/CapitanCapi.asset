@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1561745fbef9b4198a71f32b3272e3, type: 3}
-  m_Name: Strong
+  m_Script: {fileID: 11500000, guid: 1cdf3e5ad9d8d5b4a97cb8feda949ddb, type: 3}
+  m_Name: CapitanCapi
   m_EditorClassIdentifier: 
-  healthCardCount: 15
-  movementCardCount: 10
-  emptyCardCount: 10
-  anchorCardCount: 5
+  name: Capitan Capi
+  type: 1
+  image: {fileID: 0}
+  action: 0
+  firstValue: 4
+  additionalAction: 2
+  secondValue: 3
