@@ -156,4 +156,12 @@ public class Player : MonoBehaviour
     public Boat GetPlayerBoat() {
         return playerBoat;
     }
+
+
+    public void Restart() {
+        foreach (Player player in players) {
+            player.playerBoat.Repair(playerBoat.GetMaxIntegrity());
+            player.playerBoat.Empty(playerBoat.GetMaxCapacity());
+        }
+    }
 }

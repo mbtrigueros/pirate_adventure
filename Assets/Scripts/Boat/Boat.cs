@@ -54,7 +54,10 @@ public class Boat : MonoBehaviour
         transform.position = route.GetPoints()[routeIndex].transform.position;
     }
 
+    public bool buoyUsed = false;
     public void Buoy(Route route) {
+        if(buoyUsed) { return;}
+        buoyUsed = true;
         Debug.Log("Current Position: " + route.GetPoints()[oldPositionIndex].transform.position);
         route.GetPoints()[oldPositionIndex].ChangeColor();
         int length = route.GetPoints().Length - oldPositionIndex; 
@@ -62,6 +65,10 @@ public class Boat : MonoBehaviour
         System.Array.Copy(route.GetPoints(), oldPositionIndex, newRoute, 0, length);
         oldPositionIndex = 0; 
         route.SetPoints(newRoute); 
+    }
+
+    public void ResetBuoy(Route route, Point[] array) {
+        
     }
 
     // Repair the boat by increasing its integrity
@@ -185,4 +192,3 @@ public class Boat : MonoBehaviour
         }
     }
 }
-

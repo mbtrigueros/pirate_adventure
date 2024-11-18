@@ -32,23 +32,23 @@ public class CardDisplay : MonoBehaviour
         }
         cardImage.sprite = card.image;
 
-            switch(card.action) {
-            case CardAction.HEALTH: 
-                cardImage.color = Color.green;
-                break;
-            case CardAction.MOVEMENT:
-                cardImage.color = Color.yellow;
-                break;
-            case CardAction.ATTACK:
-                cardImage.color = Color.red;
-                break;
-            case CardAction.EMPTY: 
-                cardImage.color = Color.blue;
-                break;
-            case CardAction.BUOY:
-                cardImage.color = Color.magenta;
-                break;
-        }
+                switch(card.action) {
+                case CardAction.HEALTH: 
+                    cardImage.color = Color.green;
+                    break;
+                case CardAction.MOVEMENT:
+                    cardImage.color = Color.yellow;
+                    break;
+                case CardAction.ATTACK:
+                    cardImage.color = Color.red;
+                    break;
+                case CardAction.EMPTY: 
+                    cardImage.color = Color.blue;
+                    break;
+                case CardAction.BUOY:
+                    cardImage.color = Color.magenta;
+                    break;
+            }
         }
 
     }
