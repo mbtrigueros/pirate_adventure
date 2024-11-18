@@ -18,8 +18,8 @@ public class Point : MonoBehaviour
 
     // Acá lo que hacemos es cambiar el color del punto si el mouse está posado sobre ellos, para indicar que es seleccionable. 
     private void OnMouseOver() {
+        if(value == 0) { return;}
         gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
-        
         tooltipUI.SetActive(true);
         tooltipText.text = value.ToString();
 
@@ -27,6 +27,7 @@ public class Point : MonoBehaviour
     }
 
     private void OnMouseExit() {
+        if(value == 0) { return;}
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         tooltipUI.SetActive(false);
     }
