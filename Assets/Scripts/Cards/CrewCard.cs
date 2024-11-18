@@ -8,9 +8,10 @@ public class CrewCard: Card {
     public Collider2D firstActionCollider;
     public Collider2D secondActionCollider;
 
-    public override void Start() {
+    public override void Awake() {
         secondValue = crewCardData.secondValue;
         alternativeAction = crewCardData.alternativeAction;
+        base.Awake();
     }
 
     public override void OnMouseDown()

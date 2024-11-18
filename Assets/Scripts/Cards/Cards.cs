@@ -13,6 +13,10 @@ public class Cards : MonoBehaviour
     
 
     public void GenerateDeck() {
+        if (deck == null || deck.Count == 0) {
+        Debug.LogError("Deck is empty or not initialized!");
+        return;  // Exit the method early if the deck is empty or null
+    }
         discardDeck.Clear(); 
 
         foreach(Card card in deck) {

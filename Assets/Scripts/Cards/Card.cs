@@ -18,7 +18,7 @@ public class Card : MonoBehaviour
     public delegate void CardClickedHandler(Card card);
     public static event CardClickedHandler OnCardClicked;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         type = cardData.type;
         action = cardData.action;

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba77be4c3dd19a4478883219ee3f4093, type: 3}
   m_Name: RedGigante
   m_EditorClassIdentifier: 
-  type: 0
-  image: {fileID: 2800000, guid: ba1ec8048d21c1d48ab9e6ede30db9b6, type: 3}
-  action: 4
   name: Red Gigante
+  type: 0
+  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  action: 4
   firstValue: 2

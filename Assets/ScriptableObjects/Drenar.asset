@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e82ccf3459bac44ca2e7cfb6f3536c4, type: 3}
-  m_Name: Gonza
+  m_Script: {fileID: 11500000, guid: ba77be4c3dd19a4478883219ee3f4093, type: 3}
+  m_Name: Drenar
   m_EditorClassIdentifier: 
-  name: Gonza
-  type: 2
+  name: Drebar
+  type: 0
   image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
   action: 2
   firstValue: 1
-  alternativeAction: 0
-  secondValue: 2

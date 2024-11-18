@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba77be4c3dd19a4478883219ee3f4093, type: 3}
   m_Name: Termitas
   m_EditorClassIdentifier: 
-  type: 0
-  image: {fileID: 2800000, guid: 504f761488f5c9c4f907326a732a53fe, type: 3}
-  action: 4
   name: Termitas
+  type: 0
+  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  action: 4
   firstValue: 1

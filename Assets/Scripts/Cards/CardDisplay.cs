@@ -17,7 +17,28 @@ public class CardDisplay : MonoBehaviour
 
     }
     public void SetCardAppearance(Card card) {
-        valueText.text = card.firstValue > 0 ? card.firstValue.ToString() + card.action.ToString() : "" + card.action.ToString();
+        if (card) {
+        valueText.text = card.firstValue > 0 ? card.firstValue.ToString() : "";
         cardImage.sprite = card.image;
+
+            switch(card.action) {
+            case CardAction.HEALTH: 
+                cardImage.color = Color.green;
+                break;
+            case CardAction.MOVEMENT:
+                cardImage.color = Color.yellow;
+                break;
+            case CardAction.ATTACK:
+                cardImage.color = Color.red;
+                break;
+            case CardAction.EMPTY: 
+                cardImage.color = Color.blue;
+                break;
+            case CardAction.BUOY:
+                cardImage.color = Color.magenta;
+                break;
+        }
+        }
+
     }
 }

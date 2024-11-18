@@ -23,6 +23,7 @@ public class Boat : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() 
     {
+        
         // Initialize the boat deck
         if (boatDeck != null) {
             boatDeck.GenerateDeck();
@@ -109,7 +110,7 @@ public class Boat : MonoBehaviour
     public void TakeDamage(int damage) 
     {
         Integrity = Mathf.Clamp(Integrity - damage, 0, maxIntegrity);
-        Debug.Log("You hit a rock and took " + damage + " damage. Your integrity is now: " + Integrity);
+        Debug.Log("You took " + damage + " damage. Your integrity is now: " + Integrity);
         OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity <= 0) 
         { 
