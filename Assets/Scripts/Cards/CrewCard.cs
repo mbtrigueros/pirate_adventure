@@ -14,13 +14,17 @@ public class CrewCard : Card
     // Called when the card is created/initialized
     public override void Awake()
     {
-        secondValue = crewCardData.secondValue;
-        alternativeAction = crewCardData.alternativeAction;
+        if (crewCardData) {
+            secondValue = crewCardData.secondValue;
+            alternativeAction = crewCardData.alternativeAction;
+            
+            image = crewCardData.image;
 
-        // Debugging: Check if the data is correctly assigned
-        Debug.Log("CrewCard Initialized");
-        Debug.Log("Second Value: " + secondValue);
-        Debug.Log("Alternative Action: " + alternativeAction);
+            // Debugging: Check if the data is correctly assigned
+            Debug.Log("CrewCard Initialized");
+            Debug.Log("Second Value: " + secondValue);
+            Debug.Log("Alternative Action: " + alternativeAction);
+        }
 
         base.Awake();
     }
@@ -52,10 +56,10 @@ public class CrewCard : Card
             // Check if the hit collider is the second action's collider
             else if (hit.collider == secondActionCollider)
             {
-                Debug.Log("Second action clicked, performing alternative action with value: " + secondValue);
                 // Perform the alternative action
                 action = alternativeAction;
                 firstValue = secondValue;  // Use secondValue as the firstValue for the action
+                Debug.Log("Second action clicked, performing " + action + " with value: " + secondValue);
             }
             else
             {

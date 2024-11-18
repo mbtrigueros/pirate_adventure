@@ -115,13 +115,12 @@ public class Player : MonoBehaviour
                 playerBoat.Empty(card.firstValue);
                 yield break;
             case CardAction.ATTACK:
-                Debug.Log("Used ATTACK card");
-                foreach(Player otherPlayer in players) {
-                    if (otherPlayer != this)
-                        {
-                            Debug.Log($"{name} is attacking {otherPlayer.name}'s boat with {card.firstValue} damage.");
-                            otherPlayer.playerBoat.TakeDamage(card.firstValue);
-                        }
+                Debug.Log("Attepmting to use ATTACK card...");
+                foreach(Player player in players) {
+                    if (player != this) {
+                        Debug.Log($"{name} is attacking {player.name}'s boat with {card.firstValue} damage.");
+                        player.playerBoat.TakeDamage(card.firstValue);
+                    }
                 }
                 yield break;
             case CardAction.BUOY:

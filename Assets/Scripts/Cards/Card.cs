@@ -11,7 +11,7 @@ public class Card : MonoBehaviour
     public CardAction action;
 
     public Sprite image;
-    public new string name;
+    public string name;
     public int firstValue;
 
 

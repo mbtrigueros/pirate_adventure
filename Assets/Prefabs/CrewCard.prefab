@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4918566055518401393}
-  - component: {fileID: 4517814646512423072}
   - component: {fileID: 4949175444512692668}
+  - component: {fileID: 4517814646512423072}
   - component: {fileID: 1150566278038445630}
   m_Layer: 0
   m_Name: CrewCard
@@ -37,20 +37,6 @@ Transform:
   - {fileID: 2204616363180486887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4517814646512423072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 447572034510533996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e042345272fcd745901bd11d40112ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardImage: {fileID: 3417207905871140778}
-  valueText: {fileID: 6789993189145745831}
 --- !u!114 &4949175444512692668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +52,7 @@ MonoBehaviour:
   cardData: {fileID: 0}
   type: 0
   action: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 35dcf8df95df0014cb238169e11f586b, type: 3}
   name: 
   firstValue: 0
   crewCardData: {fileID: 0}
@@ -74,6 +60,21 @@ MonoBehaviour:
   alternativeAction: 0
   firstActionCollider: {fileID: 4192750867675419398}
   secondActionCollider: {fileID: 2291522713815678293}
+--- !u!114 &4517814646512423072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447572034510533996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e042345272fcd745901bd11d40112ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardImage: {fileID: 3417207905871140778}
+  valueText: {fileID: 6789993189145745831}
+  secondValueText: {fileID: 7029506984623694102}
 --- !u!50 &1150566278038445630
 Rigidbody2D:
   serializedVersion: 4
