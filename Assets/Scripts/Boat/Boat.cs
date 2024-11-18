@@ -91,11 +91,11 @@ public class Boat : MonoBehaviour
 
     public void ResetToPort(Route route)
     {
-            Repair(maxIntegrity);
-            Empty(maxCapacity);
-            transform.position = route.GetPoints()[0].transform.position;
-            Debug.Log("The boat has been reset to the starting position.");
-            Debug.Log("Stat have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
+        Repair(maxIntegrity);
+        Empty(maxCapacity);
+        transform.position = route.GetPoints()[0].transform.position;
+        Debug.Log("The boat has been reset to the starting position.");
+        Debug.Log("Stat have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
     }
 
     public int GetMaxIntegrity() {
@@ -180,6 +180,9 @@ public class Boat : MonoBehaviour
             case PointType.PORT:
                 // Port logic
                 Debug.Log("You're in the port.");
+                break;
+            case PointType.FIN:
+                Debug.Log("You win!");
                 break;
             default: 
                 // Do nothing for other point types

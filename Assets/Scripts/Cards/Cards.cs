@@ -8,6 +8,7 @@ public class Cards : MonoBehaviour
 {
     [SerializeField] List<Transform> cardPositions;
     [SerializeField] private List<Card> deck = new List<Card>();
+    [SerializeField] Transform deckGameObjectParent;
     private List<Card> discardDeck = new List<Card>();
     private List<Card> currentDrawnCards = new List<Card>(); 
     
@@ -25,7 +26,6 @@ public class Cards : MonoBehaviour
 
         Shuffle();
     }
-
     public List<Card> DrawCards(int count) {
         if (deck.Count == 0) {
             Debug.Log("Deck count before reshuffling: " + deck.Count);
@@ -39,17 +39,26 @@ public class Cards : MonoBehaviour
         for (int i = 0; i < count && deck.Count > 0; i++) {
             int randomIndex = Random.Range(0, deck.Count);
             Card drawnCard = deck[0];
+            DisplayCard(drawnCard, i);
+            Debug.Log("AFTER CARD POSITION " + drawnCard.transform.position);
             drawnCard.gameObject.SetActive(true);
             deck.RemoveAt(0);
             currentDrawnCards.Add(drawnCard);
             CardDisplay displayCard = drawnCard.GetComponent<CardDisplay>();
             displayCard.SetCardAppearance(drawnCard);
-            DisplayCard(drawnCard, i);
         }
 
         Debug.Log("Current Deck Count after drawing cards: " + deck.Count);
         return currentDrawnCards; 
 
+    }
+
+    private void DisplayCard(Card card, int positionIndex)
+    {
+        if (positionIndex < cardPositions.Count)
+        {
+            card.transform.position = cardPositions[positionIndex].transform.position;
+        }
     }
 
     public int GetDeckCount()
@@ -67,14 +76,6 @@ public class Cards : MonoBehaviour
         }
         else {
             Debug.Log("No cards to reshuffle.");
-        }
-    }
-
-    private void DisplayCard(Card card, int positionIndex)
-    {
-        if (positionIndex < cardPositions.Count)
-        {
-            card.transform.position = cardPositions[positionIndex].position;
         }
     }
 

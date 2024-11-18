@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Guido
   type: 2
-  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  image: {fileID: 21300000, guid: 35dcf8df95df0014cb238169e11f586b, type: 3}
   action: 2
   firstValue: 1
   alternativeAction: 0

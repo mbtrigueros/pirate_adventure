@@ -2,5 +2,6 @@ public enum PointType {
     ROCK,
     WATER,
     PORT,
-    DEFAULT
+    DEFAULT,
+    FIN
 }
