@@ -60,6 +60,7 @@ public class Boat : MonoBehaviour
         int length = route.GetPoints().Length - oldPositionIndex; 
         Point[] newRoute = new Point[length];
         System.Array.Copy(route.GetPoints(), oldPositionIndex, newRoute, 0, length);
+        oldPositionIndex = 0; 
         route.SetPoints(newRoute); 
     }
 
