@@ -124,25 +124,19 @@ public class Player : MonoBehaviour
                 }
                 yield break;
             case CardAction.BUOY:
-                // Do anchor action
+                playerBoat.Buoy(route);
                 yield break;
         }
     }
 
-    public void DrawCards()
-    {
-        // Now we get the Cards component from the boat
+    public void DrawCards() {
         Cards deck = playerBoat.GetBoatDeck();
-        if (deck)   
-        {
-            // Draw cards and add them to the player's drawn cards list
+        if (deck)   {
             drawnCards.Clear();
             List<Card> newCards = deck.DrawCards(cardsCount);
             drawnCards.AddRange(newCards);
             Debug.Log(name + " has drawn " + newCards.Count + " cards.");
-        }
-        else
-        {
+        } else {
             Debug.LogError("No deck found for the player boat!");
         }
     }

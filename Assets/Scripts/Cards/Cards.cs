@@ -80,6 +80,9 @@ public class Cards : MonoBehaviour
     }
 
     public void DiscardCard(Card card) {
+        if (card.action == CardAction.BUOY) { 
+            Debug.Log("Card was Buoy type, so once it appears it never does again.");
+            return; }
         discardDeck.Add(card);
     }
 

@@ -10,4 +10,8 @@ public class Route : MonoBehaviour
     public Point[] GetPoints() {
         return points;
     }
+
+    public void SetPoints(Point[] newPoints) {
+        points = newPoints;
+    }
 }

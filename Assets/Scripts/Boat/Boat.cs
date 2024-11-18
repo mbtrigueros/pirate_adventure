@@ -7,22 +7,15 @@ public class Boat : MonoBehaviour
     [SerializeField] private Cards boatDeck;  // The Cards object containing the deck
     public int Integrity { get; private set; }
     public int Capacity { get; private set; }
-
     [SerializeField] private int maxIntegrity, maxCapacity;
-
-    [SerializeField] private int anchoring; // estado de fondeo.
-
-    [SerializeField] public float speed = 5f;
     [SerializeField] private bool sunken = false;
 
     public event Action<int> OnIntegrityChanged;
     public event Action<int> OnCapacityChanged; 
-
     public event Action OnBoatSunk; 
 
-    // Start is called before the first frame update
-    private void Awake() 
-    {
+
+    private void Awake() {
         
         // Initialize the boat deck
         if (boatDeck != null) {
@@ -61,6 +54,15 @@ public class Boat : MonoBehaviour
         transform.position = route.GetPoints()[routeIndex].transform.position;
     }
 
+    public void Buoy(Route route) {
+        Debug.Log("Current Position: " + route.GetPoints()[oldPositionIndex].transform.position);
+        route.GetPoints()[oldPositionIndex].ChangeColor();
+        int length = route.GetPoints().Length - oldPositionIndex; 
+        Point[] newRoute = new Point[length];
+        System.Array.Copy(route.GetPoints(), oldPositionIndex, newRoute, 0, length);
+        route.SetPoints(newRoute); 
+    }
+
     // Repair the boat by increasing its integrity
     public void Repair(int health) {
         Integrity = Mathf.Clamp(Integrity + health, 0, maxIntegrity);
@@ -93,6 +95,7 @@ public class Boat : MonoBehaviour
     {
         Repair(maxIntegrity);
         Empty(maxCapacity);
+        oldPositionIndex = 0; 
         transform.position = route.GetPoints()[0].transform.position;
         Debug.Log("The boat has been reset to the starting position.");
         Debug.Log("Stat have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );

@@ -21,6 +21,14 @@ public class Point : MonoBehaviour
         return transform.position;
     }
 
+    public void ChangeColor() {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+    }
+
+    public void ChangeColorBack() {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
     public new PointType GetType() {
         return type;
     }
