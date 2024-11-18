@@ -84,10 +84,10 @@ public class HUDController : MonoBehaviour
                 
 
         if (isIntegrity) {
-                integrityTexts[playerIndex].text = $"Integridad: {currentValue} / {maxValue}";
+                integrityTexts[playerIndex].text = $"HP: {currentValue} / {maxValue}";
         }
         else {
-                capacityTexts[playerIndex].text = $"Capacidad: {currentValue} / {maxValue}";
+                capacityTexts[playerIndex].text = $"CAP: {currentValue} / {maxValue}";
         }
 
     }

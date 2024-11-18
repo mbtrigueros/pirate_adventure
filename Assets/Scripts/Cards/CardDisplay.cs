@@ -10,6 +10,9 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] public Image cardImage;
     [SerializeField] public TextMeshProUGUI valueText;
     [SerializeField] public TextMeshProUGUI secondValueText;
+    [SerializeField] public TextMeshProUGUI typeText;
+    [SerializeField] public TextMeshProUGUI actionText;
+    [SerializeField] public TextMeshProUGUI secondActionText;
     
     public void Start() {
     }
@@ -20,8 +23,12 @@ public class CardDisplay : MonoBehaviour
     public void SetCardAppearance(Card card) {
         if (card) {
         valueText.text = card.firstValue > 0 ? card.firstValue.ToString() : "";
-        if (secondValueText && card is CrewCard crewCard) {
+        typeText.text = card.type.ToString();
+        actionText.text = card.action.ToString();
+
+        if (secondValueText && secondActionText && card is CrewCard crewCard) {
             secondValueText.text = crewCard.secondValue.ToString();
+            secondActionText.text = crewCard.alternativeAction.ToString();
         }
         cardImage.sprite = card.image;
 
