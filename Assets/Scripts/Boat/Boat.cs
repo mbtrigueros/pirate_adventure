@@ -82,16 +82,6 @@ public class Boat : MonoBehaviour
         }
     }
 
-    private void Anchor() 
-    {
-        // Implement anchoring logic here
-    }
-
-    private void CheckAnchoring()
-    {
-        // Check if the boat is anchored and update state accordingly
-    }
-
     public void ResetToPort(Route route)
     {
         Repair(maxIntegrity);
