@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
                     if (otherPlayer != this)
                         {
                             Debug.Log($"{name} is attacking {otherPlayer.name}'s boat with {card.firstValue} damage.");
-                            otherPlayer.playerBoat.TakeDamage(card.firstValue);  // Apply damage to other player's boat
+                            otherPlayer.playerBoat.TakeDamage(card.firstValue);
                         }
                 }
                 yield break;
