@@ -61,6 +61,15 @@ public class TurnController : MonoBehaviour
         Debug.Log("Switched turn to: " + CurrentPlayer().name);
     }
 
+       // New method: Coroutine to delay turn switch (if needed)
+    public IEnumerator SwitchTurnCoroutine() {
+        // Optional: Wait for some time before switching turns (for animations, etc.)
+        yield return new WaitForSeconds(1f);  // You can adjust the delay duration
+
+        // Now call the SwitchTurn method
+        SwitchTurn();
+    }
+
     // Devolvemos el indice del jugador actual.
     public Player CurrentPlayer() {
         return players[currentPlayerIndex];

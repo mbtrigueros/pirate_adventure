@@ -93,8 +93,8 @@ public class Player : MonoBehaviour
     private IEnumerator CardPlayAction(Card card)
     {
         yield return StartCoroutine(GetCardAction(card, playerRoute));
-        playerBoat.GetBoatDeck().DiscardAll();      
-        TurnController.Instance.SwitchTurn();
+        playerBoat.GetBoatDeck().DiscardAll();     
+        yield return StartCoroutine(TurnController.Instance.SwitchTurnCoroutine());
     }
 
     private IEnumerator GetCardAction(Card card, Route route)
@@ -149,16 +149,16 @@ public class Player : MonoBehaviour
     }
 
     public void ClearDrawnCards()
+{
+    Debug.Log("Before clearing: " + drawnCards.Count);
+    foreach (Card card in drawnCards)
     {
-        Debug.Log("Before clearing: " + drawnCards.Count);
-        foreach (Card card in drawnCards)
-        {
-            card.gameObject.SetActive(false);
-            Debug.Log("Clearing the drawn cards...");
-        }
-        drawnCards.Clear();
-        Debug.Log("After clearing: " + drawnCards.Count);
+        card.gameObject.SetActive(false);
+        Debug.Log("Clearing the drawn cards...");
     }
+    drawnCards.Clear();
+    Debug.Log("After clearing: " + drawnCards.Count);
+}
 
     public Boat GetPlayerBoat() {
         return playerBoat;
