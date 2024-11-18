@@ -61,6 +61,11 @@ public class TurnController : MonoBehaviour
         Debug.Log("Switched turn to: " + CurrentPlayer().name);
     }
 
+    public IEnumerator SwitchTurnCoroutine() {
+        yield return new WaitForSeconds(.5f);  
+        SwitchTurn();
+    }
+
     // Devolvemos el indice del jugador actual.
     public Player CurrentPlayer() {
         return players[currentPlayerIndex];
