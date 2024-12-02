@@ -162,6 +162,8 @@ public class Player : MonoBehaviour
         foreach (Player player in players) {
             player.playerBoat.Repair(playerBoat.GetMaxIntegrity());
             player.playerBoat.Empty(playerBoat.GetMaxCapacity());
+            player.playerBoat.ResetBuoy(player.playerRoute);
+            player.playerBoat.ResetToPort(playerRoute);
         }
     }
 }

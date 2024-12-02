@@ -3411,9 +3411,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boatDeck: {fileID: 798136304}
-  maxIntegrity: 10
+  maxIntegrity: 8
   maxCapacity: 5
   sunken: 0
+  buoyUsed: 0
 --- !u!61 &1135013145
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6687,9 +6688,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boatDeck: {fileID: 767234084}
-  maxIntegrity: 10
+  maxIntegrity: 8
   maxCapacity: 5
   sunken: 0
+  buoyUsed: 0
 --- !u!212 &2055163858
 SpriteRenderer:
   m_ObjectHideFlags: 0

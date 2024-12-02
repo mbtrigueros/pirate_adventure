@@ -67,8 +67,8 @@ public class Boat : MonoBehaviour
         route.SetPoints(newRoute); 
     }
 
-    public void ResetBuoy(Route route, Point[] array) {
-        
+    public void ResetBuoy(Route route) {
+        route.SetPoints(route.GetPoints());
     }
 
     // Repair the boat by increasing its integrity
@@ -96,7 +96,7 @@ public class Boat : MonoBehaviour
         oldPositionIndex = 0; 
         transform.position = route.GetPoints()[0].transform.position;
         Debug.Log("The boat has been reset to the starting position.");
-        Debug.Log("Stat have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
+        Debug.Log("Stats have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
     }
 
     public int GetMaxIntegrity() {
