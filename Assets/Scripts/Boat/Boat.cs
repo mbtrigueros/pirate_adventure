@@ -67,8 +67,19 @@ public class Boat : MonoBehaviour
         route.SetPoints(newRoute); 
     }
 
+    // Reset buoy when we reset the game.
     public void ResetBuoy(Route route) {
-        route.SetPoints(route.GetPoints());
+        
+        // reset buoy boolean
+        buoyUsed = false;
+        
+        // return each point to it's original color.
+        foreach(Point point in route.GetPoints()) {
+            point.ChangeColorBack();
+        }
+
+        // restart route points to the originally assigned. 
+        route.RestartPoints();
     }
 
     // Repair the boat by increasing its integrity

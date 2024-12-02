@@ -63,6 +63,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if( Input.GetKeyDown(KeyCode.R)) {
+            Restart();
+            Debug.Log("Restart game");
+        } 
     }
 
     public void HandleTurnChanged(Player currentPlayer)
@@ -163,7 +167,7 @@ public class Player : MonoBehaviour
             player.playerBoat.Repair(playerBoat.GetMaxIntegrity());
             player.playerBoat.Empty(playerBoat.GetMaxCapacity());
             player.playerBoat.ResetBuoy(player.playerRoute);
-            player.playerBoat.ResetToPort(playerRoute);
+            player.playerBoat.ResetToPort(player.playerRoute);
         }
     }
 }
