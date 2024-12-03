@@ -775,7 +775,7 @@ MonoBehaviour:
   cardData: {fileID: 0}
   type: 0
   action: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: bb9ecf2df01539e41aac8f14ab2102ab, type: 3}
   name: 
   firstValue: 0
   captainCardData: {fileID: 0}

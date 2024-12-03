@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Capitan Lorenzo
   type: 1
-  image: {fileID: 21300000, guid: 66f9bdee24e6fd045b67211249c17d55, type: 3}
+  image: {fileID: 21300000, guid: bb9ecf2df01539e41aac8f14ab2102ab, type: 3}
   action: 1
   firstValue: 3
   additionalAction: 2
