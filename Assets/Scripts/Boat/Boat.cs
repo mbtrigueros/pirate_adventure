@@ -13,6 +13,7 @@ public class Boat : MonoBehaviour
     public event Action<int> OnIntegrityChanged;
     public event Action<int> OnCapacityChanged; 
     public event Action OnBoatSunk; 
+    public event Action OnBoatWin; 
 
 
     private void Awake() {
@@ -122,12 +123,10 @@ public class Boat : MonoBehaviour
     public void TakeDamage(int damage) 
     {
         Integrity = Mathf.Clamp(Integrity - damage, 0, maxIntegrity);
-        Debug.Log("You took " + damage + " damage. Your integrity is now: " + Integrity);
         OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity <= 0) 
         { 
             sunken = true; 
-            Debug.Log("The boat has sunk.");
         }
     }
 
@@ -135,12 +134,10 @@ public class Boat : MonoBehaviour
     public void TakeWater(int water) 
     {
         Capacity = Mathf.Clamp(Capacity - water, 0, maxCapacity);      
-        Debug.Log("You took on " + water + " units of water. Your capacity is now: " + Capacity);
         OnCapacityChanged?.Invoke(Capacity);
         if (Capacity <= 0) 
         { 
             sunken = true; 
-            Debug.Log("The boat has sunk.");
         }
     }
 
@@ -194,7 +191,7 @@ public class Boat : MonoBehaviour
                 Debug.Log("You're in the port.");
                 break;
             case PointType.FIN:
-                Debug.Log("You win!");
+                OnBoatWin?.Invoke();
                 break;
             default: 
                 // Do nothing for other point types
