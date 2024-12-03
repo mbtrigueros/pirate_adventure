@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gonza
   type: 2
-  image: {fileID: 21300000, guid: 35dcf8df95df0014cb238169e11f586b, type: 3}
+  image: {fileID: 21300000, guid: 2eca01e0107e1fb4e96ffca62c52fac0, type: 3}
   action: 2
   firstValue: 1
-  alternativeAction: 0
-  secondValue: 2
+  alternativeAction: 1
+  secondValue: 1

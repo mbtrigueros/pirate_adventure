@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Boya
   type: 0
-  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  image: {fileID: 21300000, guid: bef309ba4c1eca54381d554b5fe9894a, type: 3}
   action: 3
   firstValue: 0
