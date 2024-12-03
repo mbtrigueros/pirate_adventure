@@ -13,6 +13,7 @@ public class Boat : MonoBehaviour
     public event Action<int> OnIntegrityChanged;
     public event Action<int> OnCapacityChanged; 
     public event Action OnBoatSunk; 
+    public event Action OnBoatWin; 
 
 
     private void Awake() {
@@ -54,7 +55,10 @@ public class Boat : MonoBehaviour
         transform.position = route.GetPoints()[routeIndex].transform.position;
     }
 
+    public bool buoyUsed = false;
     public void Buoy(Route route) {
+        if(buoyUsed) { return;}
+        buoyUsed = true;
         Debug.Log("Current Position: " + route.GetPoints()[oldPositionIndex].transform.position);
         route.GetPoints()[oldPositionIndex].ChangeColor();
         int length = route.GetPoints().Length - oldPositionIndex; 
@@ -62,6 +66,21 @@ public class Boat : MonoBehaviour
         System.Array.Copy(route.GetPoints(), oldPositionIndex, newRoute, 0, length);
         oldPositionIndex = 0; 
         route.SetPoints(newRoute); 
+    }
+
+    // Reset buoy when we reset the game.
+    public void ResetBuoy(Route route) {
+        
+        // reset buoy boolean
+        buoyUsed = false;
+        
+        // return each point to it's original color.
+        foreach(Point point in route.GetPoints()) {
+            point.ChangeColorBack();
+        }
+
+        // restart route points to the originally assigned. 
+        route.RestartPoints();
     }
 
     // Repair the boat by increasing its integrity
@@ -89,7 +108,7 @@ public class Boat : MonoBehaviour
         oldPositionIndex = 0; 
         transform.position = route.GetPoints()[0].transform.position;
         Debug.Log("The boat has been reset to the starting position.");
-        Debug.Log("Stat have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
+        Debug.Log("Stats have been restored. Integrity: " + Integrity + " Capacity: " + Capacity );
     }
 
     public int GetMaxIntegrity() {
@@ -104,12 +123,10 @@ public class Boat : MonoBehaviour
     public void TakeDamage(int damage) 
     {
         Integrity = Mathf.Clamp(Integrity - damage, 0, maxIntegrity);
-        Debug.Log("You took " + damage + " damage. Your integrity is now: " + Integrity);
         OnIntegrityChanged?.Invoke(Integrity);
         if (Integrity <= 0) 
         { 
             sunken = true; 
-            Debug.Log("The boat has sunk.");
         }
     }
 
@@ -117,12 +134,10 @@ public class Boat : MonoBehaviour
     public void TakeWater(int water) 
     {
         Capacity = Mathf.Clamp(Capacity - water, 0, maxCapacity);      
-        Debug.Log("You took on " + water + " units of water. Your capacity is now: " + Capacity);
         OnCapacityChanged?.Invoke(Capacity);
         if (Capacity <= 0) 
         { 
             sunken = true; 
-            Debug.Log("The boat has sunk.");
         }
     }
 
@@ -176,7 +191,7 @@ public class Boat : MonoBehaviour
                 Debug.Log("You're in the port.");
                 break;
             case PointType.FIN:
-                Debug.Log("You win!");
+                OnBoatWin?.Invoke();
                 break;
             default: 
                 // Do nothing for other point types
@@ -185,4 +200,3 @@ public class Boat : MonoBehaviour
         }
     }
 }
-

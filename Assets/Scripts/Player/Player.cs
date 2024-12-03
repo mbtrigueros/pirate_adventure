@@ -40,12 +40,19 @@ public class Player : MonoBehaviour
         players.Add(this);
         if (playerBoat != null && playerRoute != null) {
             playerBoat.OnBoatSunk += HandleBoatSunk;
+            playerBoat.OnBoatWin += HandleBoatWin;
             playerBoat.ResetToPort(playerRoute);
         } else {
             Debug.LogError("No boat found in the scene.");
         }
     }
-    
+
+    private void HandleBoatWin()
+    {
+        Debug.Log(this.name + "won!!!!!!!!");
+        Restart();
+    }
+
     private void HandleBoatSunk()
     {
         Debug.Log("The boat has sunk.");
@@ -63,6 +70,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if( Input.GetKeyDown(KeyCode.R)) {
+            Restart();
+            Debug.Log("Restart game");
+        } 
     }
 
     public void HandleTurnChanged(Player currentPlayer)
@@ -155,5 +166,15 @@ public class Player : MonoBehaviour
 
     public Boat GetPlayerBoat() {
         return playerBoat;
+    }
+
+
+    public void Restart() {
+        foreach (Player player in players) {
+            player.playerBoat.Repair(playerBoat.GetMaxIntegrity());
+            player.playerBoat.Empty(playerBoat.GetMaxCapacity());
+            player.playerBoat.ResetBuoy(player.playerRoute);
+            player.playerBoat.ResetToPort(player.playerRoute);
+        }
     }
 }
