@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Termitas
   type: 0
-  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  image: {fileID: 21300000, guid: 504f761488f5c9c4f907326a732a53fe, type: 3}
   action: 4
   firstValue: 1

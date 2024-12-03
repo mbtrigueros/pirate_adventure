@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bel
   type: 2
-  image: {fileID: 21300000, guid: 35dcf8df95df0014cb238169e11f586b, type: 3}
+  image: {fileID: 21300000, guid: d109570a8bdddb8438c8d884e7cb08d0, type: 3}
   action: 0
   firstValue: 1
   alternativeAction: 1

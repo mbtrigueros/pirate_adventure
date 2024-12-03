@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Red Gigante
   type: 0
-  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  image: {fileID: 21300000, guid: ba1ec8048d21c1d48ab9e6ede30db9b6, type: 3}
   action: 4
   firstValue: 2

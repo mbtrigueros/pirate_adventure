@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Ale, Tutor de Abordaje
   type: 2
-  image: {fileID: 21300000, guid: 35dcf8df95df0014cb238169e11f586b, type: 3}
-  action: 1
+  image: {fileID: 21300000, guid: cb26726329b71d841ab118d4b28bb3b7, type: 3}
+  action: 0
   firstValue: 1
-  alternativeAction: 0
-  secondValue: 2
+  alternativeAction: 1
+  secondValue: 1

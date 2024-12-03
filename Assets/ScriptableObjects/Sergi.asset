@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Sergi
   type: 2
-  image: {fileID: 21300000, guid: 35dcf8df95df0014cb238169e11f586b, type: 3}
+  image: {fileID: 21300000, guid: e0dee58359f3b014c97a91a72f384050, type: 3}
   action: 0
   firstValue: 1
   alternativeAction: 2
-  secondValue: 2
+  secondValue: 1

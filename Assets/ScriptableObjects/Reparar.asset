@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Reparar
   type: 0
-  image: {fileID: 21300000, guid: 9b047731128a7ca408cbde1b2d0afd82, type: 3}
+  image: {fileID: 21300000, guid: e6ef827db880d874e871f2183534ae5c, type: 3}
   action: 0
   firstValue: 2
