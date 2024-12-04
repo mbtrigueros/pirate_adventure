@@ -34,6 +34,7 @@ public class HUDController : MonoBehaviour
     private void HandleTurnChanged(Player currentPlayer)
     {
         for (int i = 0; i < players.Length; i++) {
+            currentPlayerTurnText.GetComponent<Animator>().Play("fade_out");
             if (players[i] == currentPlayer) SetCurrentPlayerText(i);
         }
     }
@@ -66,13 +67,12 @@ public class HUDController : MonoBehaviour
 
     void SetPlayerTitle(int playerIndex)
     {
-
-            playerTitles[playerIndex].text = $"Jugador {playerIndex + 1}";
+        playerTitles[playerIndex].text = playerIndex == 0 ? "Lorenzo" : "Carpi";
         
     }
 
     void SetCurrentPlayerText(int playerIndex) {
-        currentPlayerTurnText.text = $"Turno del Jugador {playerIndex + 1}";
+        currentPlayerTurnText.text = playerIndex == 0 ? "Turno de Lorenzo" : "Turno de Carpi";
     }
 
     void UpdateBoatUI(int playerIndex, int currentValue, int maxValue, bool isIntegrity) {
