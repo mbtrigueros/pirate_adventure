@@ -45,6 +45,7 @@ public class Card : MonoBehaviour
     }    
 
     public virtual void OnMouseDown() {
+        gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 0.5f);
         OnCardClicked?.Invoke(this);
     }
     
