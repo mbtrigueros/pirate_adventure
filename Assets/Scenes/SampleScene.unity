@@ -794,7 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4509804, g: 0.27450982, b: 0.20392157, a: 1}
+  m_Color: {r: 0.6981132, g: 0.51635385, b: 0.38527945, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2119,7 +2119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 83, y: 120.78}
+  m_AnchoredPosition: {x: 82, y: 120.78}
   m_SizeDelta: {x: 167.38, y: 284.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &763436714
@@ -2745,6 +2745,8 @@ MonoBehaviour:
   playerTitles:
   - {fileID: 1398652500}
   - {fileID: 1691648154}
+  lorenzoColor: {r: 0.10684408, g: 0.46226418, b: 0.35563818, a: 1}
+  carpiColor: {r: 0.34901962, g: 0.4627451, b: 0.87058824, a: 1}
 --- !u!1 &995308220
 GameObject:
   m_ObjectHideFlags: 0
@@ -6433,7 +6435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.87058824, g: 0.6666667, b: 0.52156866, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

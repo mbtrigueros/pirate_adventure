@@ -13,6 +13,8 @@ public class HUDController : MonoBehaviour
     [SerializeField] Image[] avatars;
     [SerializeField] TextMeshProUGUI[] integrityTexts, capacityTexts, playerTitles;
 
+    [SerializeField] Color lorenzoColor;
+    [SerializeField] Color carpiColor;
     void Start()
     {
         if (players != null) {
@@ -77,10 +79,11 @@ public class HUDController : MonoBehaviour
 
     void SetCurrentPlayerText(int playerIndex) {
         currentPlayerTurnText.text = playerIndex == 0 ? "Turno de Lorenzo" : "Turno de Carpi";
+        currentPlayerTurnText.color = playerIndex == 0 ? lorenzoColor : carpiColor;
     }
 
     void SetCurrentPlayerAvatarAnimation(int playerIndex) {
-        
+
         if(playerIndex == 0) {
             var animatorCurrent = avatars[0].GetComponent<Animator>();
             animatorCurrent.Rebind();
