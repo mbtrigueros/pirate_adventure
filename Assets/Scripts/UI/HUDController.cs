@@ -10,6 +10,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] Player[] players;
     [SerializeField] TextMeshProUGUI currentPlayerTurnText;
 
+    [SerializeField] Image[] avatars;
     [SerializeField] TextMeshProUGUI[] integrityTexts, capacityTexts, playerTitles;
 
     void Start()
@@ -35,7 +36,10 @@ public class HUDController : MonoBehaviour
     {
         for (int i = 0; i < players.Length; i++) {
             currentPlayerTurnText.GetComponent<Animator>().Play("fade_out");
-            if (players[i] == currentPlayer) SetCurrentPlayerText(i);
+            if (players[i] == currentPlayer) {
+                SetCurrentPlayerAvatarAnimation(i); 
+                SetCurrentPlayerText(i);
+            }
         }
     }
 
@@ -74,6 +78,26 @@ public class HUDController : MonoBehaviour
     void SetCurrentPlayerText(int playerIndex) {
         currentPlayerTurnText.text = playerIndex == 0 ? "Turno de Lorenzo" : "Turno de Carpi";
     }
+
+    void SetCurrentPlayerAvatarAnimation(int playerIndex) {
+        
+        if(playerIndex == 0) {
+            var animatorCurrent = avatars[0].GetComponent<Animator>();
+            animatorCurrent.Rebind();
+            animatorCurrent.Play("rotate");
+            var animatorOther = avatars[1].GetComponent<Animator>();
+            animatorOther.Rebind();
+            animatorOther.Play("turn_gray");
+        }
+        else {
+            var animatorCurrent = avatars[1].GetComponent<Animator>();
+            animatorCurrent.Rebind();
+            animatorCurrent.Play("rotate");
+            var animatorOther = avatars[0].GetComponent<Animator>();
+            animatorOther.Rebind();
+            animatorOther.Play("turn_gray");
+        }
+    } 
 
     void UpdateBoatUI(int playerIndex, int currentValue, int maxValue, bool isIntegrity) {
         // Debug the index and array lengths
