@@ -12,11 +12,16 @@ public class Point : MonoBehaviour
     [SerializeField] GameObject tooltipUI;
     [SerializeField] TMP_Text tooltipText;
 
+    [SerializeField] Sprite buoySprite;
+
     private Color spriteOriginalColor;
+
+    private Sprite originalSprite;
 
     private void Start() {
         tooltipUI.SetActive(false);
         spriteOriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
+        originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
     }
 
     // Acá lo que hacemos es cambiar el color del punto si el mouse está posado sobre ellos, para indicar que es seleccionable. 
@@ -42,6 +47,15 @@ public class Point : MonoBehaviour
     public void ChangeColor() {
         gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
     }
+
+    public void ThrowBuoy() {
+        gameObject.GetComponent<SpriteRenderer>().sprite = buoySprite;
+    }
+
+    public void ResetSprite() {
+        gameObject.GetComponent<SpriteRenderer>().sprite = originalSprite;
+    }
+
 
     public void ChangeColorBack() {        
         gameObject.GetComponent<SpriteRenderer>().color = spriteOriginalColor;

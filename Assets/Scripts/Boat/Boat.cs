@@ -59,8 +59,7 @@ public class Boat : MonoBehaviour
     public void Buoy(Route route) {
         if(buoyUsed) { return;}
         buoyUsed = true;
-        Debug.Log("Current Position: " + route.GetPoints()[oldPositionIndex].transform.position);
-        route.GetPoints()[oldPositionIndex].ChangeColor();
+        route.GetPoints()[oldPositionIndex].ThrowBuoy();
         int length = route.GetPoints().Length - oldPositionIndex; 
         Point[] newRoute = new Point[length];
         System.Array.Copy(route.GetPoints(), oldPositionIndex, newRoute, 0, length);
@@ -76,7 +75,7 @@ public class Boat : MonoBehaviour
         
         // return each point to it's original color.
         foreach(Point point in route.GetPoints()) {
-            point.ChangeColorBack();
+            point.ResetSprite();
         }
 
         // restart route points to the originally assigned. 

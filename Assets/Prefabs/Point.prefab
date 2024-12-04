@@ -133,3 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef976050948d8da438529f66499b5fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
+  value: 1
+  tooltipUI: {fileID: 0}
+  tooltipText: {fileID: 0}
+  buoySprite: {fileID: 21300000, guid: d029fccaa1d966649bc08c59ee8b78fc, type: 3}
