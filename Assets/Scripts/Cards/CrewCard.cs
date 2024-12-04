@@ -46,19 +46,16 @@ public class CrewCard : Card
         {
             if (hit.collider == firstActionCollider)
             {
-                gameObject.GetComponent<Animator>().Play("change_color_alt_left");
                 Debug.Log("First action clicked, performing action with value: " + firstValue);
-                // Perform the first action
+
                 action = crewCardData.action;  
                 firstValue = crewCardData.firstValue;  
             }
-            // Check if the hit collider is the second action's collider
-            else if (hit.collider == secondActionCollider)
+            
+            if (hit.collider == secondActionCollider)
             {
-                // Perform the alternative action
-                gameObject.GetComponent<Animator>().Play("change_color_alt_right");
                 action = alternativeAction;
-                firstValue = secondValue;  // Use secondValue as the firstValue for the action
+                firstValue = secondValue;  
                 Debug.Log("Second action clicked, performing " + action + " with value: " + secondValue);
             }
             else
