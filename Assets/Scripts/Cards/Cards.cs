@@ -83,12 +83,16 @@ public class Cards : MonoBehaviour
         // if (card.action == CardAction.BUOY) { 
         //     Debug.Log("Card was Buoy type, so once it appears it never does again.");
         //     return; }
+
         discardDeck.Add(card);
     }
 
     public void DiscardAll() {
         foreach(Card card in currentDrawnCards) {
-            card.gameObject.SetActive(false);
+            // if(card.GetComponent<Animator>() != null) {
+            //     card.GetComponent<Animator>().Play("fade_out");
+            // }
+           // card.gameObject.SetActive(false);
             DiscardCard(card);
         }
 

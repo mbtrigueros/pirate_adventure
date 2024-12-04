@@ -17,6 +17,10 @@ public class CardDisplay : MonoBehaviour
     public void Update() {
 
     }
+    public void DisableCard() {
+        gameObject.SetActive(false);
+        cardImage.color = Color.white;
+    }
     public void SetCardAppearance(Card card) {
         if (card) {
         valueText.text = card.firstValue > 0 ? card.firstValue.ToString() : "";

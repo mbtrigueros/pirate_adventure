@@ -1,4 +1,6 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CrewCard : Card
 {
@@ -10,6 +12,9 @@ public class CrewCard : Card
     // References to the colliders for the left and right actions
     public Collider2D firstActionCollider;
     public Collider2D secondActionCollider;
+
+    public UnityEngine.UI.Image overlayLeft;
+    public UnityEngine.UI.Image overlayRight;
 
     // Called when the card is created/initialized
     public override void Awake()
@@ -32,31 +37,26 @@ public class CrewCard : Card
     // Called when the mouse is clicked on the card
     public override void OnMouseDown()
     {
-        // Get the mouse position in world space (Z = 0 for 2D)
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;  // Set Z to 0 since it's a 2D game
+        mousePosition.z = 0;  
 
-        // Perform a raycast at the mouse position
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);  // Raycast in the direction of the mouse position
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero); 
 
-        // Debugging: log the mouse position and the hit collider
-        Debug.Log($"Mouse Position: {mousePosition}");
-
-        // If a collider is hit, check which one it is
         if (hit.collider != null)
         {
-            // Check if the hit collider is the first action's collider
             if (hit.collider == firstActionCollider)
             {
+                gameObject.GetComponent<Animator>().Play("change_color_alt_left");
                 Debug.Log("First action clicked, performing action with value: " + firstValue);
                 // Perform the first action
-                action = crewCardData.action;  // Example: Assign the card's action
-                firstValue = crewCardData.firstValue;  // Set the value for the first action
+                action = crewCardData.action;  
+                firstValue = crewCardData.firstValue;  
             }
             // Check if the hit collider is the second action's collider
             else if (hit.collider == secondActionCollider)
             {
                 // Perform the alternative action
+                gameObject.GetComponent<Animator>().Play("change_color_alt_right");
                 action = alternativeAction;
                 firstValue = secondValue;  // Use secondValue as the firstValue for the action
                 Debug.Log("Second action clicked, performing " + action + " with value: " + secondValue);
@@ -71,7 +71,6 @@ public class CrewCard : Card
             Debug.Log("No collider was hit.");
         }
 
-        // Always call base to ensure any additional functionality from the base class is invoked
         base.OnMouseDown();
     }
 }

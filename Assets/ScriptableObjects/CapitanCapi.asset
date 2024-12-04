@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Capitan Carpi
   type: 1
-  image: {fileID: 21300000, guid: a2b5b0aaa3eadce45814ba14353b7706, type: 3}
+  image: {fileID: 21300000, guid: 9a48757d08f74ee4b82711d1a9d8b3d4, type: 3}
   action: 0
   firstValue: 4
   additionalAction: 2
