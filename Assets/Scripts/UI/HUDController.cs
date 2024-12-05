@@ -11,6 +11,9 @@ public class HUDController : MonoBehaviour
     [SerializeField] TextMeshProUGUI currentPlayerTurnText;
 
     [SerializeField] Image[] avatars;
+
+    [SerializeField] Sprite[] avatar1Sprites;
+    [SerializeField] Sprite[] avatar2Sprites;
     [SerializeField] TextMeshProUGUI[] integrityTexts, capacityTexts, playerTitles;
 
     [SerializeField] Color lorenzoColor;
@@ -114,13 +117,13 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    // Update the UI for integrity or capacity based on the stat value
     void UpdateBoatUI(int playerIndex, int currentValue, int maxValue, bool isIntegrity)
     {
         // Update the sprite based on the stat value (integrity or capacity)
         if (isIntegrity)
         {
             UpdateIntegrityImage(playerIndex, currentValue, maxValue);
+            UpdateAvatarSprite(playerIndex, currentValue);  // Update avatar when integrity changes
         }
         else
         {
@@ -135,6 +138,7 @@ public class HUDController : MonoBehaviour
 
         // Update the sprite based on the current integrity value
         integrityImage[playerIndex].sprite = integritySprites[spriteIndex];
+        avatars[playerIndex].sprite = integritySprites[spriteIndex];
         integrityTexts[playerIndex].text = $"{currentIntegrity} / {maxValue}";
     }
 
@@ -147,4 +151,17 @@ public class HUDController : MonoBehaviour
         capacityImage[playerIndex].sprite = capacitySprites[spriteIndex];
         capacityTexts[playerIndex].text = $"{currentCapacity} / {maxValue}";
     }
+
+    void UpdateAvatarSprite(int playerIndex, int currentIntegrity)
+    {
+        // Map the current integrity to the appropriate sprite index using math
+        int spriteIndex = Mathf.FloorToInt((float)currentIntegrity / 2);  // Divide by 2 since we have 4 sprites for 8 points
+
+        // Ensure the sprite index is within bounds
+        spriteIndex = Mathf.Clamp(spriteIndex, 0, avatar1Sprites.Length - 1);
+
+        // Update the avatar sprite for the player
+        avatars[playerIndex].sprite = playerIndex == 0 ? avatar1Sprites[spriteIndex] : avatar2Sprites[spriteIndex];
+    }
+
 }
