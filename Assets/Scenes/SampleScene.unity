@@ -7847,6 +7847,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2978284693025076188, guid: 8f4e3c0d8cf103949801026b7cedd3fb, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: a4aee7ee527fa1a49a9cb6b6a7d3d36f, type: 2}
     - target: {fileID: 3017823437808552897, guid: 8f4e3c0d8cf103949801026b7cedd3fb, type: 3}
       propertyPath: cardPositions.Array.data[0]
       value: 
