@@ -46,6 +46,7 @@ public class Cards : MonoBehaviour
             currentDrawnCards.Add(drawnCard);
             CardDisplay displayCard = drawnCard.GetComponent<CardDisplay>();
             displayCard.SetCardAppearance(drawnCard);
+            AudioManager.Instance.PlaySound("Carta");
         }
 
         Debug.Log("Current Deck Count after drawing cards: " + deck.Count);

@@ -143,6 +143,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -274,6 +278,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -359,6 +367,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -469,6 +481,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -583,6 +599,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -741,6 +761,106 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204632627}
   m_CullTransparentMesh: 1
+--- !u!1 &231875768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 231875770}
+  - component: {fileID: 231875769}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &231875769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231875768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f38ac3f6cdfdf4a9787f47a7dea2a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  sounds:
+  - name: BGMusic
+    clip: {fileID: 8300000, guid: 5c3851cb486667e4eba6b57b21fafbec, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
+  - name: Ataque
+    clip: {fileID: 8300000, guid: 2a6704d52e118db46a4ddd7671758756, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Boya
+    clip: {fileID: 8300000, guid: 2bfc1850a9ee6a74fa31868d5a017243, type: 3}
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Movimiento
+    clip: {fileID: 8300000, guid: 4efdab9b81760af469110791c9a5c24a, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Vaciar
+    clip: {fileID: 8300000, guid: 357f6dbe5f490a9478e200520e33488c, type: 3}
+    volume: 0.5
+    pitch: 0.5
+    source: {fileID: 0}
+    loop: 0
+  - name: Reparar
+    clip: {fileID: 8300000, guid: afd7bde7504e1a746b9bb7db34123417, type: 3}
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Vida
+    clip: {fileID: 8300000, guid: 5323418a13d2faa4791fe226de7ead62, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Choque
+    clip: {fileID: 8300000, guid: 8ee5edf91eb328642a8aefc3293f4dce, type: 3}
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Carta
+    clip: {fileID: 8300000, guid: 7cd750604e6d78040b3f4a192274332e, type: 3}
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+--- !u!4 &231875770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231875768}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9900699, y: 3.1422167, z: 1335.0302}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &315422562
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,6 +1094,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -1056,6 +1180,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -1137,6 +1265,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -1396,6 +1528,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -1570,6 +1706,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -1651,6 +1791,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -2008,6 +2152,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -2239,6 +2387,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -2439,6 +2591,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -2524,6 +2680,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -3182,6 +3342,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -3294,6 +3458,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -3599,6 +3767,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -3757,6 +3929,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -3886,6 +4062,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -3983,6 +4163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1268896522}
   - component: {fileID: 1268896521}
+  - component: {fileID: 1268896523}
   m_Layer: 0
   m_Name: TurnController
   m_TagString: Untagged
@@ -4020,6 +4201,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1268896523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268896520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c37f9c9f8cca544caabe6ac09d1cd91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1291817735 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
@@ -4051,6 +4244,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -4172,6 +4369,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -4529,6 +4730,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -4914,6 +5119,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -5026,6 +5235,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -5432,6 +5645,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -5648,6 +5865,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -5769,6 +5990,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -5861,6 +6086,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -5958,6 +6187,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -6103,6 +6336,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -6435,7 +6672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8301887, g: 0.76167834, b: 0.54432184, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6609,6 +6846,10 @@ PrefabInstance:
       propertyPath: tooltipUI
       value: 
       objectReference: {fileID: 424790343}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
@@ -6939,6 +7180,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 424790343}
     - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
+      propertyPath: buoySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a58b27e78d69cfc42bead3a849c811b2, type: 3}
+    - target: {fileID: 4252162262463748277, guid: ce3fc6cf273afd44298a469360483351, type: 3}
       propertyPath: tooltipText
       value: 
       objectReference: {fileID: 319256551}
@@ -7258,3 +7503,4 @@ SceneRoots:
   - {fileID: 1208359582}
   - {fileID: 932711415}
   - {fileID: 1370296030}
+  - {fileID: 231875770}

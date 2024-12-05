@@ -115,18 +115,26 @@ public class Player : MonoBehaviour
         switch (card.action)
         {
             case CardAction.HEALTH:
-            if (captainCard ) { playerBoat.TakeWater(captainCard.secondValue); }
+            if (captainCard ) { 
+                playerBoat.TakeWater(captainCard.secondValue); 
+                AudioManager.Instance.PlaySound("Vida");    
+            }
+                AudioManager.Instance.PlaySound("Reparar");
                 playerBoat.Repair(card.firstValue);
                 yield break;
             case CardAction.MOVEMENT:
             if (captainCard) { playerBoat.TakeWater(captainCard.secondValue); }
+                AudioManager.Instance.PlaySound("Movimiento");
                 playerBoat.Move(route, card.firstValue);
                 yield break;
             case CardAction.EMPTY:
+                AudioManager.Instance.PlaySound("Vaciar");
                 playerBoat.Empty(card.firstValue);
                 yield break;
             case CardAction.ATTACK:
                 Debug.Log("Attepmting to use ATTACK card...");
+                AudioManager.Instance.PlaySound("Ataque");
+                AudioManager.Instance.PlaySound("Vida");
                 foreach(Player player in players) {
                     if (player != this) {
                         Debug.Log($"{name} is attacking {player.name}'s boat with {card.firstValue} damage.");
@@ -135,6 +143,7 @@ public class Player : MonoBehaviour
                 }
                 yield break;
             case CardAction.BUOY:
+            AudioManager.Instance.PlaySound("Boya");
                 playerBoat.Buoy(route);
                 yield break;
         }
