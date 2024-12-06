@@ -13,7 +13,7 @@ public class Boat : MonoBehaviour
     public event Action<int> OnIntegrityChanged;
     public event Action<int> OnCapacityChanged; 
     public event Action OnBoatSunk; 
-    public event Action OnBoatWin; 
+    public event Action<Player> OnBoatWin; 
 
 
     private void Awake() {
@@ -42,25 +42,35 @@ public class Boat : MonoBehaviour
     }
 
     int oldPositionIndex = 0;
-
+    
     // Method for moving the boat along the route
-    public void Move(Route route, int cardValue) 
+    public void Move(Route route, int cardValue)
     {
-        if (sunken) {
-            oldPositionIndex = 0; 
+        if (sunken){
+            oldPositionIndex = 0;
             return;
         }
-        var routeIndex = oldPositionIndex + cardValue;   
+        
+        var routeIndex = oldPositionIndex + cardValue;
+
+        var points = route.GetPoints();
+        if (routeIndex < 0) {
+            routeIndex = 0;  
+        }
+        else if (routeIndex >= points.Length) {
+            routeIndex = points.Length - 1;  
+        }
+
         oldPositionIndex = routeIndex;
-        transform.position = route.GetPoints()[routeIndex].transform.position;
+        transform.position = points[routeIndex].transform.position;
     }
+
 
     public bool buoyUsed = false;
     public void Buoy(Route route) {
         if(buoyUsed) { return;}
         buoyUsed = true;
-        Debug.Log("Current Position: " + route.GetPoints()[oldPositionIndex].transform.position);
-        route.GetPoints()[oldPositionIndex].ChangeColor();
+        route.GetPoints()[oldPositionIndex].ThrowBuoy();
         int length = route.GetPoints().Length - oldPositionIndex; 
         Point[] newRoute = new Point[length];
         System.Array.Copy(route.GetPoints(), oldPositionIndex, newRoute, 0, length);
@@ -76,7 +86,7 @@ public class Boat : MonoBehaviour
         
         // return each point to it's original color.
         foreach(Point point in route.GetPoints()) {
-            point.ChangeColorBack();
+            point.ResetSprite();
         }
 
         // restart route points to the originally assigned. 
@@ -182,16 +192,19 @@ public class Boat : MonoBehaviour
         {
             case PointType.ROCK:
                 TakeDamage(point.GetValue());
+                AudioManager.Instance.PlaySound("Choque");
+            //    AudioManager.Instance.PlaySound("Vida");
                 break;
             case PointType.WATER:
                 TakeWater(point.GetValue());
+                AudioManager.Instance.PlaySound("Agua");
                 break;
             case PointType.PORT:
                 // Port logic
                 Debug.Log("You're in the port.");
                 break;
             case PointType.FIN:
-                OnBoatWin?.Invoke();
+                OnBoatWin?.Invoke(this.GetComponentInParent<Player>());
                 break;
             default: 
                 // Do nothing for other point types

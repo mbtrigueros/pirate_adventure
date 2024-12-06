@@ -14,6 +14,8 @@ public class Card : MonoBehaviour
     public string name;
     public int firstValue;
 
+    public List<Card> cardList;
+
 
     public delegate void CardClickedHandler(Card card);
     public static event CardClickedHandler OnCardClicked;
@@ -27,7 +29,25 @@ public class Card : MonoBehaviour
         image = cardData.image;
     }
 
-    public virtual void OnMouseDown() {
-        OnCardClicked?.Invoke(this);
+    private void Start() {
+        
+        cardList.Add(this);
+        Debug.Log("Added " + this + " to " + cardList);
+    }
+
+
+    public virtual void OnMouseOver() {
+        gameObject.GetComponent<Animator>().Play("scale_in");
     }    
+
+    public virtual void OnMouseExit() {
+        gameObject.GetComponent<Animator>().Play("scale_out");
+    }    
+
+    public virtual void OnMouseDown() {
+        gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + 0.5f);
+        OnCardClicked?.Invoke(this);
+    }
+    
 }
+

@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 100}
+  m_SizeDelta: {x: 80, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8773675374913108691
 CanvasRenderer:
@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 3175381915596717029}
   - component: {fileID: 6891480088995480280}
   - component: {fileID: 2784588687458112932}
+  - component: {fileID: 951379543479610275}
   m_Layer: 0
   m_Name: ActionCard
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   image: {fileID: 0}
   name: 
   firstValue: 0
+  cardList: []
 --- !u!114 &6891480088995480280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,9 +148,6 @@ MonoBehaviour:
   cardImage: {fileID: 4183489940964543857}
   valueText: {fileID: 2382115511833357301}
   secondValueText: {fileID: 0}
-  typeText: {fileID: 463403669939978071}
-  actionText: {fileID: 3369947811461015519}
-  secondActionText: {fileID: 0}
 --- !u!65 &2784588687458112932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -168,8 +167,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.2320943, y: 7.2423778, z: 1}
-  m_Center: {x: 0.00000023841858, y: 0.01584363, z: 0}
+  m_Size: {x: 5.8546486, y: 8.921533, z: 1}
+  m_Center: {x: 0, y: -0.012456417, z: 0}
+--- !u!95 &951379543479610275
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2501262421663882396}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d1172ca563cc23e4683d93f96f9aaf2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4232568385958344585
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.6, y: -41.7}
+  m_AnchoredPosition: {x: -28.4, y: -49.52}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1606637236041868658
@@ -502,7 +522,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 32767
+  m_SortingOrder: 32765
   m_TargetDisplay: 0
 --- !u!114 &6527183674617093366
 MonoBehaviour:

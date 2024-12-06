@@ -26,6 +26,15 @@ public class Cards : MonoBehaviour
 
         Shuffle();
     }
+
+
+    public void RestartDeck() {
+        DiscardAll();
+       // ReshuffleDiscardDeck();
+        currentDrawnCards.Clear();
+        Debug.Log("Deck has been restarted.");
+    }
+    
     public List<Card> DrawCards(int count) {
         if (deck.Count == 0) {
             Debug.Log("Deck count before reshuffling: " + deck.Count);
@@ -46,6 +55,7 @@ public class Cards : MonoBehaviour
             currentDrawnCards.Add(drawnCard);
             CardDisplay displayCard = drawnCard.GetComponent<CardDisplay>();
             displayCard.SetCardAppearance(drawnCard);
+            AudioManager.Instance.PlaySound("Carta");
         }
 
         Debug.Log("Current Deck Count after drawing cards: " + deck.Count);
@@ -83,12 +93,12 @@ public class Cards : MonoBehaviour
         // if (card.action == CardAction.BUOY) { 
         //     Debug.Log("Card was Buoy type, so once it appears it never does again.");
         //     return; }
+
         discardDeck.Add(card);
     }
 
     public void DiscardAll() {
         foreach(Card card in currentDrawnCards) {
-            card.gameObject.SetActive(false);
             DiscardCard(card);
         }
 

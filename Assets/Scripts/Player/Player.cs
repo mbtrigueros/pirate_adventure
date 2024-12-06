@@ -47,10 +47,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void HandleBoatWin()
+    public void HandleBoatWin(Player currentPlayer)
     {
         Debug.Log(this.name + "won!!!!!!!!");
-        Restart();
+        AudioManager.Instance.PlaySound("Victoria");
+      //  Restart();
     }
 
     private void HandleBoatSunk()
@@ -71,7 +72,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if( Input.GetKeyDown(KeyCode.R)) {
-            Restart();
+        //    Restart();
             Debug.Log("Restart game");
         } 
     }
@@ -82,7 +83,14 @@ public class Player : MonoBehaviour
         if (currentPlayer == this)
         {
             Debug.Log(name + " can take their turn.");
+            playerBoat.GetComponent<Animator>().Rebind();
+            playerBoat.GetComponent<Animator>().Play("blink_animation_boat");
             DrawCards();
+        }
+
+        else {
+            playerBoat.GetComponent<Animator>().Rebind();
+            playerBoat.GetComponent<Animator>().Play("blink_animation_idle");
         }
     }
 
@@ -115,18 +123,26 @@ public class Player : MonoBehaviour
         switch (card.action)
         {
             case CardAction.HEALTH:
-            if (captainCard ) { playerBoat.TakeWater(captainCard.secondValue); }
+            if (captainCard ) { 
+                playerBoat.TakeWater(captainCard.secondValue); 
+                AudioManager.Instance.PlaySound("Vida");    
+            }
+                AudioManager.Instance.PlaySound("Reparar");
                 playerBoat.Repair(card.firstValue);
                 yield break;
             case CardAction.MOVEMENT:
             if (captainCard) { playerBoat.TakeWater(captainCard.secondValue); }
+                AudioManager.Instance.PlaySound("Movimiento");
                 playerBoat.Move(route, card.firstValue);
                 yield break;
             case CardAction.EMPTY:
+                AudioManager.Instance.PlaySound("Vaciar");
                 playerBoat.Empty(card.firstValue);
                 yield break;
             case CardAction.ATTACK:
                 Debug.Log("Attepmting to use ATTACK card...");
+                AudioManager.Instance.PlaySound("Ataque");
+                AudioManager.Instance.PlaySound("Vida");
                 foreach(Player player in players) {
                     if (player != this) {
                         Debug.Log($"{name} is attacking {player.name}'s boat with {card.firstValue} damage.");
@@ -135,6 +151,7 @@ public class Player : MonoBehaviour
                 }
                 yield break;
             case CardAction.BUOY:
+            AudioManager.Instance.PlaySound("Boya");
                 playerBoat.Buoy(route);
                 yield break;
         }
@@ -168,13 +185,8 @@ public class Player : MonoBehaviour
         return playerBoat;
     }
 
-
-    public void Restart() {
-        foreach (Player player in players) {
-            player.playerBoat.Repair(playerBoat.GetMaxIntegrity());
-            player.playerBoat.Empty(playerBoat.GetMaxCapacity());
-            player.playerBoat.ResetBuoy(player.playerRoute);
-            player.playerBoat.ResetToPort(player.playerRoute);
-        }
+    public Route GetPlayerRoute() {
+        return playerRoute;
     }
+
 }

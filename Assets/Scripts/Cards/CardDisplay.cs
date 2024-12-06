@@ -10,14 +10,22 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] public Image cardImage;
     [SerializeField] public TextMeshProUGUI valueText;
     [SerializeField] public TextMeshProUGUI secondValueText;
+
+    private Color originalColor;
     
     public void Start() {
+      //  originalColor = cardImage.color;
     }
 
     public void Update() {
 
     }
+    public void DisableCard() {
+        gameObject.SetActive(false);
+    }
     public void SetCardAppearance(Card card) {
+     //   cardImage.color = originalColor;
+
         if (card) {
         valueText.text = card.firstValue > 0 ? card.firstValue.ToString() : "";
 
