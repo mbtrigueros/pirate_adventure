@@ -20,11 +20,16 @@ public class Point : MonoBehaviour
 
     private Vector3 originalScale;
 
+    private Material originalMaterial;
+
+    [SerializeField] Material buoyMaterial;
+
     private void Start() {
         tooltipUI.SetActive(false);
         spriteOriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
         originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
         originalScale = gameObject.transform.localScale;
+        originalMaterial = gameObject.GetComponent<SpriteRenderer>().material;
     }
 
     // Acá lo que hacemos es cambiar el color del punto si el mouse está posado sobre ellos, para indicar que es seleccionable. 
@@ -53,11 +58,13 @@ public class Point : MonoBehaviour
 
     public void ThrowBuoy() {
         gameObject.GetComponent<SpriteRenderer>().sprite = buoySprite;
+        gameObject.GetComponent<SpriteRenderer>().material = buoyMaterial;
         gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void ResetSprite() {
         gameObject.GetComponent<SpriteRenderer>().sprite = originalSprite;
+        gameObject.GetComponent<SpriteRenderer>().material = originalMaterial;
         gameObject.transform.localScale = originalScale;
     }
 

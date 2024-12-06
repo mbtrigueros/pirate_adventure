@@ -124,17 +124,15 @@ public class Player : MonoBehaviour
         {
             case CardAction.HEALTH:
             if (captainCard ) { 
-                playerBoat.TakeWater(captainCard.secondValue); 
-                AudioManager.Instance.PlaySound("Agua");    
-            }
-                AudioManager.Instance.PlaySound("Reparar");
+                    playerBoat.TakeWater(captainCard.secondValue); 
+                    AudioManager.Instance.PlaySound("Agua"); }
                 playerBoat.Repair(card.firstValue);
+                AudioManager.Instance.PlaySound("Reparar");
                 yield break;
             case CardAction.MOVEMENT:
-            if (captainCard) { 
+                if (captainCard) { 
                     playerBoat.TakeWater(captainCard.secondValue); 
-                    AudioManager.Instance.PlaySound("Agua");  
-                }
+                    AudioManager.Instance.PlaySound("Agua");  }
                 AudioManager.Instance.PlaySound("Movimiento");
                 playerBoat.Move(route, card.firstValue);
                 yield break;
