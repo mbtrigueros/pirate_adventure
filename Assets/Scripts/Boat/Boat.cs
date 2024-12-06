@@ -193,7 +193,6 @@ public class Boat : MonoBehaviour
             case PointType.ROCK:
                 TakeDamage(point.GetValue());
                 AudioManager.Instance.PlaySound("Choque");
-            //    AudioManager.Instance.PlaySound("Vida");
                 break;
             case PointType.WATER:
                 TakeWater(point.GetValue());
