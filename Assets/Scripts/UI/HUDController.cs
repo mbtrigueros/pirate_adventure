@@ -19,6 +19,10 @@ public class HUDController : MonoBehaviour
     [SerializeField] Color lorenzoColor;
     [SerializeField] Color carpiColor;
 
+    [SerializeField] GameObject winMenu;
+    [SerializeField] TextMeshProUGUI winnerName;
+    [SerializeField] Image winnerAvatar;
+
     // New Image components for integrity and capacity
     [SerializeField] Image[] integrityImage, capacityImage; 
     [SerializeField] Sprite[] integritySprites; // Array of sprites for integrity levels (sliced from the sprite sheet)
@@ -35,10 +39,23 @@ public class HUDController : MonoBehaviour
                 boat.OnIntegrityChanged += (currentIntegrity) => UpdateBoatUI(playerIndex, currentIntegrity, boat.GetMaxIntegrity(), true);
                 boat.OnCapacityChanged += (currentCapacity) => UpdateBoatUI(playerIndex, currentCapacity, boat.GetMaxCapacity(), false);
                 TurnController.Instance.OnTurnChanged += HandleTurnChanged;
+                boat.OnBoatWin += HandleBoatWin;
+
             }
             HandleTurnChanged(players[0]);
 
             InitializeHUD();
+        }
+    }
+
+    private void HandleBoatWin(Player currentPlayer)
+    {
+        winMenu.SetActive(true);
+            for (int i = 0; i < players.Length; i++)   {
+                if (players[i] == currentPlayer) {
+                    winnerName.text = playerTitles[i].ToString();
+                    winnerAvatar.sprite = avatars[i].sprite;
+                } 
         }
     }
 

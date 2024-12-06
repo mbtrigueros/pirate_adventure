@@ -26,6 +26,14 @@ public class Cards : MonoBehaviour
 
         Shuffle();
     }
+
+
+    public void RestartDeck() {
+        DiscardAll();
+        ReshuffleDiscardDeck();
+        Debug.Log("Deck has been restarted.");
+    }
+    
     public List<Card> DrawCards(int count) {
         if (deck.Count == 0) {
             Debug.Log("Deck count before reshuffling: " + deck.Count);

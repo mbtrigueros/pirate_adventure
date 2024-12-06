@@ -47,10 +47,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void HandleBoatWin()
+    public void HandleBoatWin(Player currentPlayer)
     {
         Debug.Log(this.name + "won!!!!!!!!");
-        Restart();
+        AudioManager.Instance.PlaySound("Victoria");
+      //  Restart();
     }
 
     private void HandleBoatSunk()
@@ -184,6 +185,7 @@ public class Player : MonoBehaviour
             player.playerBoat.Empty(playerBoat.GetMaxCapacity());
             player.playerBoat.ResetBuoy(player.playerRoute);
             player.playerBoat.ResetToPort(player.playerRoute);
+            player.playerBoat.GetBoatDeck().RestartDeck();
         }
     }
 }

@@ -13,7 +13,7 @@ public class Boat : MonoBehaviour
     public event Action<int> OnIntegrityChanged;
     public event Action<int> OnCapacityChanged; 
     public event Action OnBoatSunk; 
-    public event Action OnBoatWin; 
+    public event Action<Player> OnBoatWin; 
 
 
     private void Awake() {
@@ -186,14 +186,14 @@ public class Boat : MonoBehaviour
                 break;
             case PointType.WATER:
                 TakeWater(point.GetValue());
-                // AudioManager.Instance.PlaySound("Vida");
+                AudioManager.Instance.PlaySound("Agua");
                 break;
             case PointType.PORT:
                 // Port logic
                 Debug.Log("You're in the port.");
                 break;
             case PointType.FIN:
-                OnBoatWin?.Invoke();
+                OnBoatWin?.Invoke(this.GetComponentInParent<Player>());
                 break;
             default: 
                 // Do nothing for other point types
