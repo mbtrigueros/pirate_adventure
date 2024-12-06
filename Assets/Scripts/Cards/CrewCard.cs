@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ public class CrewCard : Card
 
     public UnityEngine.UI.Image overlayLeft;
     public UnityEngine.UI.Image overlayRight;
+
+    public GameObject highlightLeft, highlightRight;
 
     // Called when the card is created/initialized
     public override void Awake()
@@ -33,6 +36,13 @@ public class CrewCard : Card
         base.Awake();
     }
 
+    IEnumerator DeactivateArrows()
+    {
+        highlightLeft.SetActive(false);
+        highlightRight.SetActive(false);
+        yield return new WaitForSeconds(.5f);
+    }
+
     // Called when the mouse is clicked on the card
     public override void OnMouseDown()
     {
@@ -47,12 +57,16 @@ public class CrewCard : Card
             {
                 Debug.Log("First action clicked, performing action with value: " + firstValue);
 
+                highlightLeft.SetActive(true);
+                
                 action = crewCardData.action;  
                 firstValue = crewCardData.firstValue;  
             }
             
             if (hit.collider == secondActionCollider)
             {
+                highlightRight.SetActive(true);
+
                 action = alternativeAction;
                 firstValue = secondValue;  
                 Debug.Log("Second action clicked, performing " + action + " with value: " + secondValue);
@@ -61,6 +75,8 @@ public class CrewCard : Card
             {
                 Debug.Log("Clicked outside the action areas.");
             }
+
+            StartCoroutine(DeactivateArrows());
         }
         else
         {

@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if( Input.GetKeyDown(KeyCode.R)) {
-            Restart();
+        //    Restart();
             Debug.Log("Restart game");
         } 
     }
@@ -83,7 +83,14 @@ public class Player : MonoBehaviour
         if (currentPlayer == this)
         {
             Debug.Log(name + " can take their turn.");
+            playerBoat.GetComponent<Animator>().Rebind();
+            playerBoat.GetComponent<Animator>().Play("blink_animation_boat");
             DrawCards();
+        }
+
+        else {
+            playerBoat.GetComponent<Animator>().Rebind();
+            playerBoat.GetComponent<Animator>().Play("blink_animation_idle");
         }
     }
 
@@ -178,14 +185,8 @@ public class Player : MonoBehaviour
         return playerBoat;
     }
 
-
-    public void Restart() {
-        foreach (Player player in players) {
-            player.playerBoat.Repair(playerBoat.GetMaxIntegrity());
-            player.playerBoat.Empty(playerBoat.GetMaxCapacity());
-            player.playerBoat.ResetBuoy(player.playerRoute);
-            player.playerBoat.ResetToPort(player.playerRoute);
-            player.playerBoat.GetBoatDeck().RestartDeck();
-        }
+    public Route GetPlayerRoute() {
+        return playerRoute;
     }
+
 }

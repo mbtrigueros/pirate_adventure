@@ -3,9 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class YouWinMenuController : MonoBehaviour
 {
+    [SerializeField] Canvas overlay;
     public void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+    {        
+        gameObject.SetActive(false);
+        overlay.gameObject.SetActive(false);
     }
 
     // Function to quit the game

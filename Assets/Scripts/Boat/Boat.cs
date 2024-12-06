@@ -42,18 +42,29 @@ public class Boat : MonoBehaviour
     }
 
     int oldPositionIndex = 0;
-
+    
     // Method for moving the boat along the route
-    public void Move(Route route, int cardValue) 
+    public void Move(Route route, int cardValue)
     {
-        if (sunken) {
-            oldPositionIndex = 0; 
+        if (sunken){
+            oldPositionIndex = 0;
             return;
         }
-        var routeIndex = oldPositionIndex + cardValue;   
+        
+        var routeIndex = oldPositionIndex + cardValue;
+
+        var points = route.GetPoints();
+        if (routeIndex < 0) {
+            routeIndex = 0;  
+        }
+        else if (routeIndex >= points.Length) {
+            routeIndex = points.Length - 1;  
+        }
+
         oldPositionIndex = routeIndex;
-        transform.position = route.GetPoints()[routeIndex].transform.position;
+        transform.position = points[routeIndex].transform.position;
     }
+
 
     public bool buoyUsed = false;
     public void Buoy(Route route) {

@@ -30,7 +30,7 @@ public class Cards : MonoBehaviour
 
     public void RestartDeck() {
         DiscardAll();
-        ReshuffleDiscardDeck();
+       // ReshuffleDiscardDeck();
         Debug.Log("Deck has been restarted.");
     }
     
@@ -98,10 +98,6 @@ public class Cards : MonoBehaviour
 
     public void DiscardAll() {
         foreach(Card card in currentDrawnCards) {
-        //     if(card.GetComponent<Animator>() != null) {
-        //     card.GetComponent<Animator>().Play("fade_out");
-        // }
-            //card.gameObject.SetActive(false);
             DiscardCard(card);
         }
 

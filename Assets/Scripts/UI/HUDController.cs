@@ -23,6 +23,8 @@ public class HUDController : MonoBehaviour
     [SerializeField] TextMeshProUGUI winnerName;
     [SerializeField] Image winnerAvatar;
 
+    [SerializeField] Canvas overlay;
+
     // New Image components for integrity and capacity
     [SerializeField] Image[] integrityImage, capacityImage; 
     [SerializeField] Sprite[] integritySprites; // Array of sprites for integrity levels (sliced from the sprite sheet)
@@ -51,10 +53,12 @@ public class HUDController : MonoBehaviour
     private void HandleBoatWin(Player currentPlayer)
     {
         winMenu.SetActive(true);
+        overlay.gameObject.SetActive(true);
+        Time.timeScale = 0;
             for (int i = 0; i < players.Length; i++)   {
                 if (players[i] == currentPlayer) {
-                    winnerName.text = playerTitles[i].ToString();
-                    winnerAvatar.sprite = avatars[i].sprite;
+                    winnerName.text = "El ganador es: " + playerTitles[i].text + "!!!";
+                    winnerAvatar.sprite = i == 0 ? avatar1Sprites[3] : avatar2Sprites[3];
                 } 
         }
     }

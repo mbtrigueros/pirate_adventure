@@ -14,7 +14,7 @@ public class CardDisplay : MonoBehaviour
     private Color originalColor;
     
     public void Start() {
-        originalColor = cardImage.color;
+      //  originalColor = cardImage.color;
     }
 
     public void Update() {
@@ -24,7 +24,7 @@ public class CardDisplay : MonoBehaviour
         gameObject.SetActive(false);
     }
     public void SetCardAppearance(Card card) {
-        cardImage.color = originalColor;
+     //   cardImage.color = originalColor;
 
         if (card) {
         valueText.text = card.firstValue > 0 ? card.firstValue.ToString() : "";
