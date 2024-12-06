@@ -36,11 +36,19 @@ public class CrewCard : Card
         base.Awake();
     }
 
-    IEnumerator DeactivateArrows()
+    IEnumerator AnimationLeft()
     {
+        highlightLeft.SetActive(true);
+        yield return new WaitForSeconds(.3f);
         highlightLeft.SetActive(false);
+    }
+
+    IEnumerator AnimationRight()
+    {
+        highlightRight.SetActive(true);
+        yield return new WaitForSeconds(.3f);
         highlightRight.SetActive(false);
-        yield return new WaitForSeconds(.5f);
+        
     }
 
     // Called when the mouse is clicked on the card
@@ -57,7 +65,8 @@ public class CrewCard : Card
             {
                 Debug.Log("First action clicked, performing action with value: " + firstValue);
 
-                highlightLeft.SetActive(true);
+                StartCoroutine(AnimationLeft());
+
                 
                 action = crewCardData.action;  
                 firstValue = crewCardData.firstValue;  
@@ -65,7 +74,8 @@ public class CrewCard : Card
             
             if (hit.collider == secondActionCollider)
             {
-                highlightRight.SetActive(true);
+                StartCoroutine(AnimationRight());
+                
 
                 action = alternativeAction;
                 firstValue = secondValue;  
@@ -75,8 +85,6 @@ public class CrewCard : Card
             {
                 Debug.Log("Clicked outside the action areas.");
             }
-
-            StartCoroutine(DeactivateArrows());
         }
         else
         {

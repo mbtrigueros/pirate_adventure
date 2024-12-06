@@ -16,15 +16,15 @@ public class CaptainCard: Card {
 
     public override void OnMouseDown()
     {
-        arrowDown.SetActive(true);
-        StartCoroutine(DeactivateArrow());
+        StartCoroutine(ArrowAnimation());
         base.OnMouseDown();
     }
 
-        IEnumerator DeactivateArrow()
-    {
+        IEnumerator ArrowAnimation()
+    {    
+        arrowDown.SetActive(true);
+        yield return new WaitForSeconds(.3f);
         arrowDown.SetActive(false);
-        yield return new WaitForSeconds(.5f);
     }
 
 }

@@ -76,11 +76,6 @@ public class TurnController : MonoBehaviour
         foreach (Player player in players) {
             player.GetPlayerBoat().ResetBuoy(player.GetPlayerRoute());
             player.GetPlayerBoat().ResetToPort(player.GetPlayerRoute());
-            player.GetPlayerBoat().GetBoatDeck().RestartDeck();
         }
-
-       // SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
-
-        StartPlayerTurn();
     }
 }

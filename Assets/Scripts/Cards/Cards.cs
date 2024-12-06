@@ -31,6 +31,7 @@ public class Cards : MonoBehaviour
     public void RestartDeck() {
         DiscardAll();
        // ReshuffleDiscardDeck();
+        currentDrawnCards.Clear();
         Debug.Log("Deck has been restarted.");
     }
     
