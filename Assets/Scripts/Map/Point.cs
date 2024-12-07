@@ -32,7 +32,7 @@ public class Point : MonoBehaviour
         tooltipUI.SetActive(false);
         spriteOriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
         originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        originalScale = gameObject.transform.localScale;
+        originalScale = buoySprite.transform.localScale;
         originalMaterial = gameObject.GetComponent<SpriteRenderer>().material;
     }
 
@@ -62,6 +62,7 @@ public class Point : MonoBehaviour
 
     public void ThrowBuoy() {
         if (buoySprite) buoySprite.SetActive(true);
+        buoySprite.transform.localScale = originalScale;
     }
 
     public void ResetSprite() {

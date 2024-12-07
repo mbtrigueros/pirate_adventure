@@ -69,14 +69,14 @@ public class CrewCard : Card
     IEnumerator AnimationLeft()
     {
         highlightLeft.SetActive(true);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(20f);
         highlightLeft.SetActive(false);
     }
 
     IEnumerator AnimationRight()
     {
         highlightRight.SetActive(true);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(20f);
         highlightRight.SetActive(false);
         
     }

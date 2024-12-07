@@ -71,10 +71,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if( Input.GetKeyDown(KeyCode.R)) {
-        //    Restart();
-            Debug.Log("Restart game");
-        } 
     }
 
     public void HandleTurnChanged(Player currentPlayer)
@@ -151,9 +147,13 @@ public class Player : MonoBehaviour
                 }
                 yield break;
             case CardAction.BUOY:
-            AudioManager.Instance.PlaySound("Boya");
+            if (playerBoat.buoyUsed == false) {
+                AudioManager.Instance.PlaySound("Boya");
                 playerBoat.Buoy(route);
-                yield break;
+            } else {
+                Debug.Log("Ya usaste la boya");
+            }
+            yield break;
         }
     }
 
