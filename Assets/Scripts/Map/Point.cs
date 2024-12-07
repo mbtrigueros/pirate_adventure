@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Point : MonoBehaviour
@@ -12,7 +13,7 @@ public class Point : MonoBehaviour
     [SerializeField] GameObject tooltipUI;
     [SerializeField] TMP_Text tooltipText;
 
-    [SerializeField] Sprite buoySprite;
+    [SerializeField] GameObject buoySprite;
 
     private Color spriteOriginalColor;
 
@@ -60,17 +61,11 @@ public class Point : MonoBehaviour
     }
 
     public void ThrowBuoy() {
-        gameObject.GetComponent<SpriteRenderer>().sprite = buoySprite;
-        gameObject.GetComponent<SpriteRenderer>().material = buoyMaterial;
-        gameObject.GetComponent<SpriteRenderer>().color = buoyMaterial.color;
-        gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        if (buoySprite) buoySprite.SetActive(true);
     }
 
     public void ResetSprite() {
-        gameObject.GetComponent<SpriteRenderer>().sprite = originalSprite;
-        gameObject.GetComponent<SpriteRenderer>().material = originalMaterial;
-        gameObject.GetComponent<SpriteRenderer>().color = spriteOriginalColor;
-        gameObject.transform.localScale = originalScale;
+        if (buoySprite) buoySprite.SetActive(false);
     }
 
 
