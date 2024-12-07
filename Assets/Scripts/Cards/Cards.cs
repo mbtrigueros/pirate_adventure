@@ -8,17 +8,27 @@ public class Cards : MonoBehaviour
 {
     [SerializeField] List<Transform> cardPositions;
     [SerializeField] private List<Card> deck = new List<Card>();
+    private List<Card> originalDeck = new List<Card>();
     [SerializeField] Transform deckGameObjectParent;
     private List<Card> discardDeck = new List<Card>();
     private List<Card> currentDrawnCards = new List<Card>(); 
+
+    [SerializeField] Boat deckBoat;
+    [SerializeField] Card extraCard;
     
 
+    public void  Awake() {
+        originalDeck.AddRange(deck);
+    }
     public void GenerateDeck() {
         if (deck == null || deck.Count == 0) {
         Debug.LogError("Deck is empty or not initialized!");
-        return;  // Exit the method early if the deck is empty or null
+        return; 
     }
+        currentDrawnCards.Clear();
         discardDeck.Clear(); 
+        deck.Clear();
+        deck.AddRange(originalDeck);
 
         foreach(Card card in deck) {
             card.gameObject.SetActive(false);
@@ -27,10 +37,20 @@ public class Cards : MonoBehaviour
         Shuffle();
     }
 
+    [SerializeField] Card buoyCard;
+    public void AddCardToDeck() {
+        if(deck.Contains(buoyCard)) {
+            return;
+        }
+        else {
+            deck.Add(buoyCard);
+            deck.Remove(extraCard);
+        }
+    }
+
 
     public void RestartDeck() {
         DiscardAll();
-       // ReshuffleDiscardDeck();
         currentDrawnCards.Clear();
         Debug.Log("Deck has been restarted.");
     }
@@ -90,11 +110,14 @@ public class Cards : MonoBehaviour
     }
 
     public void DiscardCard(Card card) {
-        if (card.action == CardAction.BUOY) { 
-            Debug.Log("Card was Buoy type, so once it appears it never does again.");
-            return; }
-
-        discardDeck.Add(card);
+        if (card.action == CardAction.BUOY && deckBoat.buoyUsed == true) { 
+            Debug.Log("Card was Buoy type, so once it appears it never does again. Was replaced with another card.");
+            discardDeck.Add(extraCard);
+            return;
+        }
+        else {
+            discardDeck.Add(card);
+        }
     }
 
     public void DiscardAll() {

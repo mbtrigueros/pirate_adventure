@@ -26,6 +26,8 @@ public class CardDisplay : MonoBehaviour
     public void SetCardAppearance(Card card) {
      //   cardImage.color = originalColor;
 
+        
+
         if (card) {
         valueText.text = card.firstValue > 0 ? card.firstValue.ToString() : "";
 

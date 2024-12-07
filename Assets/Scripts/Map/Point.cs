@@ -61,8 +61,8 @@ public class Point : MonoBehaviour
     }
 
     public void ThrowBuoy() {
-        if (buoySprite) buoySprite.SetActive(true);
-        buoySprite.transform.localScale = originalScale;
+        buoySprite.SetActive(true);
+        buoySprite.transform.position = gameObject.transform.position + new Vector3(0f, -0.2f);
     }
 
     public void ResetSprite() {
