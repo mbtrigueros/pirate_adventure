@@ -13,10 +13,6 @@ public class YouWinMenuController : MonoBehaviour
     // Function to quit the game
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false; 
-        #else
-            Application.Quit(); // Quit the game in a built version
-        #endif
+        Application.Quit(); 
     }
 }
