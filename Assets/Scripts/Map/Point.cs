@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Point : MonoBehaviour
@@ -12,7 +13,7 @@ public class Point : MonoBehaviour
     [SerializeField] GameObject tooltipUI;
     [SerializeField] TMP_Text tooltipText;
 
-    [SerializeField] Sprite buoySprite;
+    [SerializeField] GameObject buoySprite;
 
     private Color spriteOriginalColor;
 
@@ -20,16 +21,24 @@ public class Point : MonoBehaviour
 
     private Vector3 originalScale;
 
+    private Material originalMaterial;
+
+    [SerializeField] Material buoyMaterial;
+
+
+    [SerializeField] GameObject winMenu;
+
     private void Start() {
         tooltipUI.SetActive(false);
         spriteOriginalColor = gameObject.GetComponent<SpriteRenderer>().color;
         originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-        originalScale = gameObject.transform.localScale;
+        originalScale = buoySprite.transform.localScale;
+        originalMaterial = gameObject.GetComponent<SpriteRenderer>().material;
     }
 
     // Acá lo que hacemos es cambiar el color del punto si el mouse está posado sobre ellos, para indicar que es seleccionable. 
     private void OnMouseOver() {
-        if(value == 0) { return;}
+        if(value == 0 || winMenu.activeSelf == true ) { return;}
         gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
         tooltipUI.SetActive(true);
         tooltipText.text = value.ToString();
@@ -52,13 +61,12 @@ public class Point : MonoBehaviour
     }
 
     public void ThrowBuoy() {
-        gameObject.GetComponent<SpriteRenderer>().sprite = buoySprite;
-        gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        buoySprite.SetActive(true);
+        buoySprite.transform.position = gameObject.transform.position + new Vector3(0f, -0.2f);
     }
 
     public void ResetSprite() {
-        gameObject.GetComponent<SpriteRenderer>().sprite = originalSprite;
-        gameObject.transform.localScale = originalScale;
+        if (buoySprite) buoySprite.SetActive(false);
     }
 
 

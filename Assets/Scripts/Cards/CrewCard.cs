@@ -36,17 +36,47 @@ public class CrewCard : Card
         base.Awake();
     }
 
+    public override void OnMouseOver() {
+        
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;  
+
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero); 
+
+        if (hit.collider != null)
+        {
+            if (hit.collider == firstActionCollider)
+            {
+
+                StartCoroutine(AnimationLeft());
+            }
+            
+            if (hit.collider == secondActionCollider)
+            {
+                StartCoroutine(AnimationRight());
+            }
+        }
+        base.OnMouseOver();    
+        }
+
+    public override void OnMouseExit()
+    {
+        highlightLeft.SetActive(false);
+        highlightRight.SetActive(false);
+        base.OnMouseExit();
+    }
+
     IEnumerator AnimationLeft()
     {
         highlightLeft.SetActive(true);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(20f);
         highlightLeft.SetActive(false);
     }
 
     IEnumerator AnimationRight()
     {
         highlightRight.SetActive(true);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(20f);
         highlightRight.SetActive(false);
         
     }

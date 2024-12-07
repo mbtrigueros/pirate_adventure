@@ -71,10 +71,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if( Input.GetKeyDown(KeyCode.R)) {
-        //    Restart();
-            Debug.Log("Restart game");
-        } 
     }
 
     public void HandleTurnChanged(Player currentPlayer)
@@ -124,14 +120,15 @@ public class Player : MonoBehaviour
         {
             case CardAction.HEALTH:
             if (captainCard ) { 
-                playerBoat.TakeWater(captainCard.secondValue); 
-                AudioManager.Instance.PlaySound("Vida");    
-            }
-                AudioManager.Instance.PlaySound("Reparar");
+                    playerBoat.TakeWater(captainCard.secondValue); 
+                    AudioManager.Instance.PlaySound("Agua"); }
                 playerBoat.Repair(card.firstValue);
+                AudioManager.Instance.PlaySound("Reparar");
                 yield break;
             case CardAction.MOVEMENT:
-            if (captainCard) { playerBoat.TakeWater(captainCard.secondValue); }
+                if (captainCard) { 
+                    playerBoat.TakeWater(captainCard.secondValue); 
+                    AudioManager.Instance.PlaySound("Agua");  }
                 AudioManager.Instance.PlaySound("Movimiento");
                 playerBoat.Move(route, card.firstValue);
                 yield break;
@@ -142,7 +139,6 @@ public class Player : MonoBehaviour
             case CardAction.ATTACK:
                 Debug.Log("Attepmting to use ATTACK card...");
                 AudioManager.Instance.PlaySound("Ataque");
-                AudioManager.Instance.PlaySound("Vida");
                 foreach(Player player in players) {
                     if (player != this) {
                         Debug.Log($"{name} is attacking {player.name}'s boat with {card.firstValue} damage.");
@@ -151,9 +147,13 @@ public class Player : MonoBehaviour
                 }
                 yield break;
             case CardAction.BUOY:
-            AudioManager.Instance.PlaySound("Boya");
+            if (playerBoat.buoyUsed == false) {
+                AudioManager.Instance.PlaySound("Boya");
                 playerBoat.Buoy(route);
-                yield break;
+            } else {
+                Debug.Log("Ya usaste la boya");
+            }
+            yield break;
         }
     }
 
